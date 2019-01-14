@@ -54,13 +54,13 @@ namespace textBasedGame
 
             if (approachAnswer == "y" || approachAnswer == "Y" || approachAnswer == "yes" || approachAnswer == "Yes"){
                 Console.WriteLine("You approach the object...");
-                Console.Clear();
-                System.Threading.Thread.Sleep(1000);
+                System.Threading.Thread.Sleep(2000);
                 Console.Beep();
+                Console.Clear();
                 Console.WriteLine("As you draw closer, you begin to make out the object as an eye!");
-                Console.Clear();
-                System.Threading.Thread.Sleep(1000);
+                System.Threading.Thread.Sleep(2000);
                 Console.Beep();
+                Console.Clear();
                 Console.WriteLine("The eye belongs to a giant spider!");
                 Console.WriteLine();
                 Console.Write("Do you try to fight it? y/n ");    
