@@ -6,6 +6,7 @@ namespace textBasedGame
     {
         static void Main(string[] args)
         {
+            Console.WriteLine("read".substring("0"));
             Console.WriteLine("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
             Console.WriteLine("Welcome to the cavern of secrets");
             Console.WriteLine("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
@@ -39,8 +40,8 @@ namespace textBasedGame
                 Console.WriteLine("You did not take the stick");
             }
 
-            Console.Clear();
             System.Threading.Thread.Sleep(2000);
+            Console.Clear();
             Console.Beep();
 
             Console.WriteLine("As you proceed further into the cave, you see a small glowing object");
@@ -63,14 +64,14 @@ namespace textBasedGame
                 Console.Clear();
                 Console.WriteLine("The eye belongs to a giant spider!");
                 Console.WriteLine();
-                Console.Write("Do you try to fight it? y/n ");    
+                Console.Write("Do you try to fight it? y/n ");
+                   
             }
-
+                
 
 
 
             Console.ReadLine();
         }
-
     }
 }
