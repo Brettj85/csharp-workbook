@@ -11,7 +11,7 @@ namespace textBasedGame
             bool continueGame = true;
             while(continueGame)
             {
-                while (alive)
+                while (runGame)
                 {
                     Console.WriteLine("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
                     Console.WriteLine("Welcome to the cavern of secrets");
@@ -48,7 +48,7 @@ namespace textBasedGame
                     {
                         //Go toward the EYE!!
                         Console.WriteLine("You approach the object...");
-                        System.Threading.Thread.Sleep(1000);
+                        System.Threading.Thread.Sleep(2000);
                         Console.WriteLine("As you draw closer, you begin to make out the object as an eye!");
                         clearBoard();
                         //fight spider or not
@@ -57,6 +57,19 @@ namespace textBasedGame
                         
                         if (choice(fightSpider))
                         {
+                            // Fight Spider
+                            bool aliveAfterFight = fightTheSpider(hasStick);
+                            if (aliveAfterFight)
+                            {
+                                clearBoard();
+                                runGame = false;
+                            } 
+                            else
+                            {
+                                clearBoard();
+                                alive = false;
+                                runGame = false;
+                            }
 
                         }
                         else
@@ -64,7 +77,7 @@ namespace textBasedGame
                             //dont fight
                             clearBoard();
                             Console.WriteLine("You choose not to fight the spider.");
-                            System.Threading.Thread.Sleep(1000);
+                            System.Threading.Thread.Sleep(2000);
                             Console.WriteLine("As you turn away, it ambushes you and impales you with it's fangs!!!");
                             clearBoard();
                             Console.WriteLine("Press enter to continue.");
@@ -78,19 +91,15 @@ namespace textBasedGame
                         //AHHHH run from the Glowing thing
                         clearBoard();
                         Console.WriteLine("You turn away from the glowing object, and attempt to leave the cave...");
-                        System.Threading.Thread.Sleep(1000);
+                        System.Threading.Thread.Sleep(2000);
                         Console.WriteLine("But something won't let you....");
-                        System.Threading.Thread.Sleep(1000);
+                        System.Threading.Thread.Sleep(2000);
                         Console.WriteLine("you slowly drift off....");
                         clearBoard();
                         Console.WriteLine("Press enter to continue.");
                         alive = false;
                         runGame = false;
                     }
-                    
-
-
-                    Console.ReadLine();
                 }
 
                 if(alive)
@@ -99,11 +108,11 @@ namespace textBasedGame
                 }
                 else
                 {
-                Console.Write("You have died! Would you like to play again? y/n ");
+                    Console.Write("You have died! Would you like to play again? y/n ");
                 }
 
                 bool continuePlaying = choice(Console.ReadLine());
-                
+                Console.Clear();
                 if (continuePlaying)
                 {
                     runGame = true;
@@ -134,7 +143,7 @@ namespace textBasedGame
         }
         public static void clearBoard()
         {   
-            System.Threading.Thread.Sleep(1000);
+            System.Threading.Thread.Sleep(2000);
             for (int i = 0; i <= 3; i++)
             {
                 Console.Beep();
@@ -155,11 +164,6 @@ namespace textBasedGame
             {
             Console.Write("{0} y/n ", secondQuestion);
             }
-            else
-            {
-
-            }
-
         }
         //return the question to be asked
         public static string returnQuestion(int questionNumber)
@@ -183,6 +187,83 @@ namespace textBasedGame
                     return gameOver;
                     break;
             }
+        }
+        public static bool fightTheSpider(bool weapon)
+        {
+            if(weapon)
+            {
+                Console.WriteLine("You only have a stick to fight with!");
+                Console.WriteLine("You quickly jab the spider in it's eye and gain an advantage");
+                clearBoard();
+                Console.WriteLine("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
+                Console.WriteLine("                  Fighting...                   ");
+                Console.WriteLine("   YOU MUST HIT ABOVE A 5 TO KILL THE SPIDER    ");
+                Console.WriteLine("IF THE SPIDER HITS HIGHER THAN YOU, YOU WILL DIE");
+                Console.WriteLine("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
+                Console.WriteLine("");
+                int result = Autobattle(weapon);
+                if (result > 0)
+                {
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+            }
+            else
+            {
+                Console.WriteLine("You don't have anything to fight with!");
+                clearBoard();
+                Console.WriteLine("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
+                Console.WriteLine("                  Fighting...                   ");
+                Console.WriteLine("   YOU MUST HIT ABOVE A 5 TO KILL THE SPIDER    ");
+                Console.WriteLine("IF THE SPIDER HITS HIGHER THAN YOU, YOU WILL DIE");
+                Console.WriteLine("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
+                Console.WriteLine("");
+                int result = Autobattle(weapon);
+
+                if (result > 0)
+                {
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+            }
+         
+        }
+        private static readonly Random getrandom = new Random();
+        public static int Autobattle(bool hasWeapon)
+        {
+            int attack = getrandom.Next(1, 8);
+            int defend = getrandom.Next(1, 5);
+            Console.WriteLine("You attacked for {0} damage", attack);
+            Console.WriteLine("The spider attacked for {0} damage", defend);
+            if (hasWeapon)
+            {
+                attack = (attack + 2);
+            }
+            int returnValue = 0;
+            if (attack < defend)
+            {
+                Console.WriteLine("The spider has dealt more damage than you!");
+                return returnValue;
+            }
+            else if (attack < 5)
+            {
+                Console.WriteLine("You didn't do enough damage to kill the spider, but you manage to escape");
+                returnValue = 1;
+                return returnValue;
+            }
+            else
+            {
+                Console.WriteLine("You killed the spider!");
+                returnValue = 2;
+                return returnValue;
+            }
+
         }
     }
 }
