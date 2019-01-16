@@ -6,7 +6,6 @@ namespace textBasedGame
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("read".IndexOf("0"));
             Console.WriteLine("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
             Console.WriteLine("Welcome to the cavern of secrets");
             Console.WriteLine("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
@@ -37,7 +36,17 @@ namespace textBasedGame
             }
                 clearBoard();
             //go toward eye or not
-
+            requestResponse(2);
+            string towardObject = Console.ReadLine();
+            if (choice(towardObject))
+            {
+                Console.WriteLine("You have taken the stick!");
+                hasStick = true;
+            }
+            else
+            {
+                Console.WriteLine("You did not take the stick");
+            }
             //fight spider or not
 
 
@@ -77,7 +86,15 @@ namespace textBasedGame
             string secondQuestion = splitQuestions[1];
             Console.WriteLine(firstQuestion);
             Console.WriteLine();
+            if (secondQuestion.Length > 0)
+            {
             Console.Write("{0} y/n ", secondQuestion);
+            }
+            else
+            {
+
+            }
+
         }
         //return the question to be asked
         public static string returnQuestion(int questionNumber)
@@ -85,12 +102,16 @@ namespace textBasedGame
             switch (questionNumber)
             {
                 case 1:
-                    string question = ("You enter a dark cavern out of curiosity. It is dark and you can only make out a small stick on the floor.*Do you take it");
+                    string question = ("You enter a dark cavern out of curiosity. It is dark and you can only make out a small stick on the floor.*Do you take it?");
                     return question;
                     break;
                 case 2:
-                    string questionTwo = ("");
+                    string questionTwo = ("As you proceed further into the cave, you see a small glowing object*Do you approach the object?");
                     return questionTwo;
+                    break;
+                case 3:
+                    string questionThree = ("You approach the object...");
+                    return questionThree;
                     break;
                 default:
                     string gameOver = ("Game Over");
