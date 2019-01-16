@@ -6,51 +6,94 @@ namespace textBasedGame
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
-            Console.WriteLine("Welcome to the cavern of secrets");
-            Console.WriteLine("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
+            bool alive = true;
+            bool continueGame = true;
+            while(continueGame)
+            {
+                while (alive)
+                {
+                    Console.WriteLine("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
+                    Console.WriteLine("Welcome to the cavern of secrets");
+                    Console.WriteLine("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
 
-            System.Threading.Thread.Sleep(3000);
-            
-            for (int i = 0; i <= 3; i++)
-            {
-            Console.Beep();
-            }
-            Console.Clear();
-            int index = 1;
-            bool hasStick = false;
-            
-            //Take stick or not
+                    System.Threading.Thread.Sleep(3000);
+                    
+                    for (int i = 0; i <= 3; i++)
+                    {
+                    Console.Beep();
+                    }
+                    Console.Clear();
+                    bool hasStick = false;
+                    
+                    //Take stick or not
 
-            requestResponse(1);
-            string stickAnswer = Console.ReadLine();
-            
-            if (choice(stickAnswer))
-            {
-                Console.WriteLine("You have taken the stick!");
-                hasStick = true;
-            }
-            else
-            {
-                Console.WriteLine("You did not take the stick");
-            }
-                clearBoard();
-            //go toward eye or not
-            requestResponse(2);
-            string towardObject = Console.ReadLine();
-            if (choice(towardObject))
-            {
-                Console.WriteLine("You have taken the stick!");
-                hasStick = true;
-            }
-            else
-            {
-                Console.WriteLine("You did not take the stick");
-            }
-            //fight spider or not
+                    requestResponse(1);
+                    string stickAnswer = Console.ReadLine();
+                    
+                    if (choice(stickAnswer))
+                    {
+                        Console.WriteLine("You have taken the stick!");
+                        hasStick = true;
+                    }
+                    else
+                    {
+                        Console.WriteLine("You did not take the stick");
+                    }
+                        clearBoard();
+                    //go toward eye or not
+                    requestResponse(2);
+                    string towardObject = Console.ReadLine();
+                    if (choice(towardObject))
+                    {
+                        //Go toward the EYE!!
+                        Console.WriteLine("You approach the object...");
+                        System.Threading.Thread.Sleep(1000);
+                        Console.WriteLine("As you draw closer, you begin to make out the object as an eye!");
+                        clearBoard();
+                        //fight spider or not
+                        requestResponse(3);
+                        string fightSpider = Console.ReadLine();
+
+                        if (choice(fightSpider))
+                        {
+
+                        }
+                        else
+                        {
+                            //dont fight
+                            Console.WriteLine("You choose not to fight the spider.");
+                            System.Threading.Thread.Sleep(1000);
+                            Console.WriteLine("As you turn away, it ambushes you and impales you with it's fangs!!!");
+                            alive = false;
+                        }
+                        
+                    }
+                    else
+                    {
+                        //AHHHH run from the Glowing thing
+                        Console.WriteLine("You turn away from the glowing object, and attempt to leave the cave...");
+                        System.Threading.Thread.Sleep(1000);
+                        Console.WriteLine("But something won't let you....");
+                        alive = false;
+                    }
+                    
 
 
-            Console.ReadLine();
+                    Console.ReadLine();
+                }
+                Console.Write("Would you like to play again?");
+                bool continuePlaying = choice(Console.ReadLine());
+                if (continuePlaying)
+                {
+                    alive = true;
+                }
+                else
+                {
+                    Console.WriteLine("Thanks for playing");
+                    continueGame = false;
+
+                }
+            }
         }
         //convert users response to a bool
         public static bool choice(string userInput) 
@@ -110,7 +153,7 @@ namespace textBasedGame
                     return questionTwo;
                     break;
                 case 3:
-                    string questionThree = ("You approach the object...");
+                    string questionThree = ("The eye belongs to a giant spider!*Do you try to fight it?");
                     return questionThree;
                     break;
                 default:
