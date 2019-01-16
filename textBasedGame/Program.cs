@@ -18,12 +18,7 @@ namespace textBasedGame
                     Console.WriteLine("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
 
                     System.Threading.Thread.Sleep(3000);
-                    
-                    for (int i = 0; i <= 3; i++)
-                    {
-                    Console.Beep();
-                    }
-                    Console.Clear();
+                    clearBoard();
                     bool hasStick = false;
                     
                     //Take stick or not
@@ -33,11 +28,13 @@ namespace textBasedGame
                     
                     if (choice(stickAnswer))
                     {
+                        clearBoard();
                         Console.WriteLine("You have taken the stick!");
                         hasStick = true;
                     }
                     else
                     {
+                        clearBoard()
                         Console.WriteLine("You did not take the stick");
                     }
                         clearBoard();
@@ -47,6 +44,7 @@ namespace textBasedGame
                     if (choice(towardObject))
                     {
                         //Go toward the EYE!!
+                        clearBoard();
                         Console.WriteLine("You approach the object...");
                         System.Threading.Thread.Sleep(2000);
                         Console.WriteLine("As you draw closer, you begin to make out the object as an eye!");
@@ -121,6 +119,7 @@ namespace textBasedGame
                 else
                 {
                     Console.WriteLine("Thanks for playing");
+                    clearBoard();
                     continueGame = false;
 
                 }
@@ -183,7 +182,7 @@ namespace textBasedGame
                     return questionThree;
                     break;
                 default:
-                    string gameOver = ("Game Over");
+                    string gameOver = ("Game Over. Something went wrong");
                     return gameOver;
                     break;
             }
@@ -195,12 +194,7 @@ namespace textBasedGame
                 Console.WriteLine("You only have a stick to fight with!");
                 Console.WriteLine("You quickly jab the spider in it's eye and gain an advantage");
                 clearBoard();
-                Console.WriteLine("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
-                Console.WriteLine("                  Fighting...                   ");
-                Console.WriteLine("   YOU MUST HIT ABOVE A 5 TO KILL THE SPIDER    ");
-                Console.WriteLine("IF THE SPIDER HITS HIGHER THAN YOU, YOU WILL DIE");
-                Console.WriteLine("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
-                Console.WriteLine("");
+                battleText();
                 int result = Autobattle(weapon);
                 if (result > 0)
                 {
@@ -215,12 +209,7 @@ namespace textBasedGame
             {
                 Console.WriteLine("You don't have anything to fight with!");
                 clearBoard();
-                Console.WriteLine("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
-                Console.WriteLine("                  Fighting...                   ");
-                Console.WriteLine("   YOU MUST HIT ABOVE A 5 TO KILL THE SPIDER    ");
-                Console.WriteLine("IF THE SPIDER HITS HIGHER THAN YOU, YOU WILL DIE");
-                Console.WriteLine("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
-                Console.WriteLine("");
+                battleText();
                 int result = Autobattle(weapon);
 
                 if (result > 0)
@@ -263,7 +252,15 @@ namespace textBasedGame
                 returnValue = 2;
                 return returnValue;
             }
-
         }
+        public static void battleText()
+            {
+                Console.WriteLine("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
+                Console.WriteLine("                  Fighting...                   ");
+                Console.WriteLine("   YOU MUST HIT ABOVE A 5 TO KILL THE SPIDER    ");
+                Console.WriteLine("IF THE SPIDER HITS HIGHER THAN YOU, YOU WILL DIE");
+                Console.WriteLine("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
+                Console.WriteLine("");
+            }
     }
 }
