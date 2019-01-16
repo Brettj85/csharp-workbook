@@ -6,7 +6,7 @@ namespace textBasedGame
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("read".substring("0"));
+            Console.WriteLine("read".IndexOf("0"));
             Console.WriteLine("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
             Console.WriteLine("Welcome to the cavern of secrets");
             Console.WriteLine("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
@@ -17,61 +17,86 @@ namespace textBasedGame
             {
             Console.Beep();
             }
-
             Console.Clear();
+            int index = 1;
+            bool hasStick = false;
+            
+            //Take stick or not
 
-            Console.WriteLine("You enter a dark cavern out of curiosity. It is dark and you can only make out a small stick on the floor.");
-            Console.WriteLine();
-            Console.Write("Do you take it y/n ");
+            requestResponse(1);
             string stickAnswer = Console.ReadLine();
             
-            Console.Clear();
-            System.Threading.Thread.Sleep(2000);
-            Console.Beep();
-
-            int stick = 0;
-            if (stickAnswer == "y" || stickAnswer == "Y" || stickAnswer == "yes" || stickAnswer == "Yes"){
-                stick = 1;
+            if (choice(stickAnswer))
+            {
                 Console.WriteLine("You have taken the stick!");
+                hasStick = true;
             }
             else
             {
-                stick = 0;
                 Console.WriteLine("You did not take the stick");
             }
+                clearBoard();
+            //go toward eye or not
 
-            System.Threading.Thread.Sleep(2000);
-            Console.Clear();
-            Console.Beep();
-
-            Console.WriteLine("As you proceed further into the cave, you see a small glowing object");
-            Console.WriteLine();
-            Console.Write("Do you approach the object? y/n ");
-            string approachAnswer = Console.ReadLine();
-            
-            Console.Clear();
-            System.Threading.Thread.Sleep(2000);
-            Console.Beep();
-
-            if (approachAnswer == "y" || approachAnswer == "Y" || approachAnswer == "yes" || approachAnswer == "Yes"){
-                Console.WriteLine("You approach the object...");
-                System.Threading.Thread.Sleep(2000);
-                Console.Beep();
-                Console.Clear();
-                Console.WriteLine("As you draw closer, you begin to make out the object as an eye!");
-                System.Threading.Thread.Sleep(2000);
-                Console.Beep();
-                Console.Clear();
-                Console.WriteLine("The eye belongs to a giant spider!");
-                Console.WriteLine();
-                Console.Write("Do you try to fight it? y/n ");
-                   
-            }
-                
-
+            //fight spider or not
 
 
             Console.ReadLine();
+        }
+        //convert users response to a bool
+        public static bool choice(string userInput) 
+        {   
+            string simplifiedResponse = userInput.ToLower().Substring(0,1);
+            if (simplifiedResponse == "y")
+            {
+                bool usersChoice = true;
+                return usersChoice;
+            }
+            else
+            {
+                bool usersChoice = false;
+                return usersChoice;
+            }
+        }
+        public static void clearBoard()
+        {   
+            System.Threading.Thread.Sleep(1000);
+            for (int i = 0; i <= 3; i++)
+            {
+                Console.Beep();
+            }
+            Console.Clear();
+            
+        }
+        //ask questions based on what part of the story we are in
+        public static void requestResponse(int questionNumber)
+        {
+            string storyQuestion = returnQuestion(questionNumber);
+            string[] splitQuestions = storyQuestion.Split('*');
+            string firstQuestion = splitQuestions[0];
+            string secondQuestion = splitQuestions[1];
+            Console.WriteLine(firstQuestion);
+            Console.WriteLine();
+            Console.Write("{0} y/n ", secondQuestion);
+        }
+        //return the question to be asked
+        public static string returnQuestion(int questionNumber)
+        {
+            switch (questionNumber)
+            {
+                case 1:
+                    string question = ("You enter a dark cavern out of curiosity. It is dark and you can only make out a small stick on the floor.*Do you take it");
+                    return question;
+                    break;
+                case 2:
+                    string questionTwo = ("");
+                    return questionTwo;
+                    break;
+                default:
+                    string gameOver = ("Game Over");
+                    return gameOver;
+                    break;
+            }
         }
     }
 }
