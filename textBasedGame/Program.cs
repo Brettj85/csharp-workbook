@@ -18,6 +18,7 @@ namespace textBasedGame
                     Console.WriteLine("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
 
                     System.Threading.Thread.Sleep(3000);
+                    
                     clearBoard();
                     bool hasStick = false;
                     
@@ -28,13 +29,11 @@ namespace textBasedGame
                     
                     if (choice(stickAnswer))
                     {
-                        clearBoard();
                         Console.WriteLine("You have taken the stick!");
                         hasStick = true;
                     }
                     else
                     {
-                        clearBoard()
                         Console.WriteLine("You did not take the stick");
                     }
                         clearBoard();
@@ -119,7 +118,6 @@ namespace textBasedGame
                 else
                 {
                     Console.WriteLine("Thanks for playing");
-                    clearBoard();
                     continueGame = false;
 
                 }
@@ -172,19 +170,15 @@ namespace textBasedGame
                 case 1:
                     string question = ("You enter a dark cavern out of curiosity. It is dark and you can only make out a small stick on the floor.*Do you take it?");
                     return question;
-                    break;
                 case 2:
                     string questionTwo = ("As you proceed further into the cave, you see a small glowing object*Do you approach the object?");
                     return questionTwo;
-                    break;
                 case 3:
                     string questionThree = ("The eye belongs to a giant spider!*Do you try to fight it?");
                     return questionThree;
-                    break;
                 default:
-                    string gameOver = ("Game Over. Something went wrong");
+                    string gameOver = ("Game Over");
                     return gameOver;
-                    break;
             }
         }
         public static bool fightTheSpider(bool weapon)
