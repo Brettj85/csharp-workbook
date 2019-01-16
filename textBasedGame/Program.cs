@@ -6,6 +6,7 @@ namespace textBasedGame
     {
         static void Main(string[] args)
         {
+            bool runGame = true;
             bool alive = true;
             bool continueGame = true;
             while(continueGame)
@@ -53,7 +54,7 @@ namespace textBasedGame
                         //fight spider or not
                         requestResponse(3);
                         string fightSpider = Console.ReadLine();
-
+                        
                         if (choice(fightSpider))
                         {
 
@@ -61,30 +62,51 @@ namespace textBasedGame
                         else
                         {
                             //dont fight
+                            clearBoard();
                             Console.WriteLine("You choose not to fight the spider.");
                             System.Threading.Thread.Sleep(1000);
                             Console.WriteLine("As you turn away, it ambushes you and impales you with it's fangs!!!");
+                            clearBoard();
+                            Console.WriteLine("Press enter to continue.");
                             alive = false;
+                            runGame = false;
                         }
                         
                     }
                     else
                     {
                         //AHHHH run from the Glowing thing
+                        clearBoard();
                         Console.WriteLine("You turn away from the glowing object, and attempt to leave the cave...");
                         System.Threading.Thread.Sleep(1000);
                         Console.WriteLine("But something won't let you....");
+                        System.Threading.Thread.Sleep(1000);
+                        Console.WriteLine("you slowly drift off....");
+                        clearBoard();
+                        Console.WriteLine("Press enter to continue.");
                         alive = false;
+                        runGame = false;
                     }
                     
 
 
                     Console.ReadLine();
                 }
-                Console.Write("Would you like to play again?");
+
+                if(alive)
+                {
+                    Console.Write("You managed to escape the cavern alive! Would you like to play again? y/n ");
+                }
+                else
+                {
+                Console.Write("You have died! Would you like to play again? y/n ");
+                }
+
                 bool continuePlaying = choice(Console.ReadLine());
+                
                 if (continuePlaying)
                 {
+                    runGame = true;
                     alive = true;
                 }
                 else
