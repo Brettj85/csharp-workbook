@@ -18,7 +18,6 @@ namespace PigLatin
         
         public static string TranslateWord(string word)
         {
-            // your code goes here
             string firstLetter = word.Substring(0,1);
             string restWord = word.Substring(1);
             string translatedWord = (restWord + firstLetter + "ay");
@@ -63,6 +62,27 @@ namespace PigLatin
             string restWord = convertLower.Substring(1);
             string translatedWord = (restWord + firstLetter + "ay");
             return translatedWord;            
+        }
+
+        public static void filePath(string file)
+        {
+        string my_path = file;
+        
+		var path_parts = my_path.Split(new char[]{'\\'});
+		List<string> output_parts = new List<string>();
+		for (int i = 0; i < path_parts.Length; i++)
+		{
+			string indent = new String(' ', i);
+			if (i > 0)
+			{
+				indent = indent + "|__";
+			}
+
+			output_parts.Add(String.Format("{0} {1}", indent, path_parts[i]));
+		}
+
+		string tree = String.Join("\n", output_parts);
+		Console.Write(tree);
         }
     }
 }
