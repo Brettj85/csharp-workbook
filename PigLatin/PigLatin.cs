@@ -33,9 +33,10 @@ namespace PigLatin
             Console.Write("oops let me fix that punctuation");
             for (int i = 0; i < 5; i++)
             {
-                System.Threading.Thread.Sleep(2000);
+                System.Threading.Thread.Sleep(1000);
                 Console.Write(".");
             }
+            Console.WriteLine("");
             string fixTranslation = fixPunctuation(translatedSentence);
             Console.WriteLine(fixTranslation);
             // leave this command at the end so your program does not close automatically
@@ -117,6 +118,10 @@ namespace PigLatin
                     string secondPartlast = secondPartIncorrect.Substring(1);
                     string secondPart = secondPartlast + secondPartFirst;
                     correctedWords[i] = (firstPart + secondPart);
+                }
+                else
+                {
+                    correctedWords[i] = allWords[i];
                 }
             }
             string translatedString = String.Join(" ", correctedWords);
