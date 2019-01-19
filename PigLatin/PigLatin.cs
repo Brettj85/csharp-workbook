@@ -28,13 +28,16 @@ namespace PigLatin
 
             Console.WriteLine("Let's try a whole sentence!");
             string userInputSentence = Console.ReadLine();
-            moreWords(userInputSentence);
+            string translatedSentence = moreWords(userInputSentence);
+            Console.WriteLine(translatedSentence);
             Console.Write("oops let me fix that punctuation");
             for (int i = 0; i < 5; i++)
             {
                 System.Threading.Thread.Sleep(2000);
                 Console.Write(".");
             }
+            string fixTranslation = fixPunctuation(translatedSentence);
+            Console.WriteLine(fixTranslation);
             // leave this command at the end so your program does not close automatically
             Console.ReadLine();
         }
@@ -96,8 +99,28 @@ namespace PigLatin
                 string restWord = allWords[i].Substring(1);
                 translatedWords[i] = (restWord + firstLetter + "ay");
             }
-            string upperCaseString = String.Join(" ", translatedWords);
-            return upperCaseString;
+            string translatedString = String.Join(" ", translatedWords);
+            return translatedString;
+        }
+        public static string fixPunctuation(string words)
+        {
+            string[] allWords = words.Split(' ');
+            string[] correctedWords = new string[allWords.Length];
+            for (int i = 0; i < allWords.Length; i++)
+            {
+                int findPunctuation = allWords[i].IndexOfAny(new char[] { '?', '.', '!', ',' });
+                if (findPunctuation > 0)
+                {
+                    string firstPart = allWords[i].Substring(0, findPunctuation);
+                    string secondPartIncorrect = allWords[i].Substring(findPunctuation);
+                    string secondPartFirst = secondPartIncorrect.Substring(0, 1);
+                    string secondPartlast = secondPartIncorrect.Substring(1);
+                    string secondPart = secondPartlast + secondPartFirst;
+                    correctedWords[i] = (firstPart + secondPart);
+                }
+            }
+            string translatedString = String.Join(" ", correctedWords);
+            return translatedString;
         }
     }
 }
