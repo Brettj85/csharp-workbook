@@ -45,8 +45,9 @@ namespace TicTacToe
                 int column;
                 if (automaticPlay && playerTurn == "O")
                 {
-                    row = autoSelect(board, level);
-                    column = autoSelect(board, level);
+                    string selectedSpot = autoSelect(board, level, playerTurn);
+                    column = 1;
+                    row = 1;
                     string computerGuess = (playerTurn + " guess is: " + row.ToString() + " , " + column.ToString());
                     Console.WriteLine();
                     Console.WriteLine(computerGuess);
@@ -278,9 +279,15 @@ namespace TicTacToe
         }
         //The "AI"
         private static readonly Random getrandom = new Random();
-        public static int autoSelect(string[,] board, int level, string playerTurn)
+        public static string autoSelect(string[,] board, int level, string playerTurn)
         {
-            return easyAI();
+
+            string computerGuess = "n";
+            if (level == 0)
+            {
+                computerGuess = easyAI() + "," + easyAI();
+            }
+            return computerGuess;
         }
 
         public static int easyAI()
@@ -305,6 +312,9 @@ namespace TicTacToe
         public static int mediumAI(string[,] board, string playerTurn)
         {
             string checkForWin = lookForWin(board, playerTurn);
+
+            string opponentTurn = (playerTurn == "X") ? "O" : "X";
+            string checkForBlock = lookForWin(board, opponentTurn);
         }
 
         public static string lookForWin(string[,] board, string playerTurn)
@@ -314,7 +324,7 @@ namespace TicTacToe
         }
         public static string checkRowpotential(string[,] board, string playerTurn)
         {
-            string valueToReturn = "3,3"; ;
+            string valueToReturn = "n"; ;
             for (int i = 0; i < 3; i++)
             {
                 if (String.IsNullOrWhiteSpace(board[i, 0]))
@@ -342,14 +352,14 @@ namespace TicTacToe
                 }
                 else
                 {
-                    valueToReturn = "3,3";
+                    valueToReturn = "n";
                 }
             }
             return valueToReturn;
         }
         public static string checkColumnpotential(string[,] board, string playerTurn)
         {
-            string valueToReturn = "3,3"; ;
+            string valueToReturn = "n"; ;
             for (int i = 0; i < 3; i++)
             {
                 if (String.IsNullOrWhiteSpace(board[0, i]))
@@ -372,12 +382,12 @@ namespace TicTacToe
                     if (board[i, 1] == board[i, 0] && board[i, 1] == playerTurn)
                     {
 
-                        valueToReturn = i + ",2";
+                        valueToReturn = "2," + i;
                     }
                 }
                 else
                 {
-                    valueToReturn = "3,3";
+                    valueToReturn = "n";
                 }
             }
             return valueToReturn;
