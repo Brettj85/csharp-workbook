@@ -6,28 +6,35 @@ namespace TicTacToe
     {
         public static void Main()
         {
-            playGame(0, 0, 0);
-
+            bool vsAI = true;
+            int level = 1;
+            playGame(0, 0, 0, "x", vsAI, level);
         }
 
-        public static void playGame(int x, int o, int t)
+        public static void playGame(int x, int o, int t, string previousWinner, bool vsAI, int level)
         {
             //keep track of wins and ties
             int xWins = x;
             int oWins = o;
             int timesTied = t;
-
-
+            //gameplay conditions
             bool win = false;
             string playerTurn = "X";
+            if (previousWinner == "X" || previousWinner == "O")
+            {
+                playerTurn = (previousWinner == "X") ? "X" : "O";
+            }
+            string winner = "n";
+            string tie = "n";
             string[,] board = new string[3, 3];
+
             bool automaticPlay = true;
             bool playAgain = true;
             //keeps track of the question of manual turns
             bool marker = true;
             //keeps track of a full turn rotation
             int turnTicker = 0;
-            int turns = 0;
+            int turns = 1;
             while (!win)
             {
                 //Make the Board
@@ -36,10 +43,10 @@ namespace TicTacToe
                 //determine if its an NPC or human, and collect the row and column choice. 
                 int row;
                 int column;
-                if (automaticPlay)
+                if (automaticPlay && playerTurn == "O")
                 {
-                    row = autoSelect();
-                    column = autoSelect();
+                    row = autoSelect(board, level);
+                    column = autoSelect(board, level);
                     string computerGuess = (playerTurn + " guess is: " + row.ToString() + " , " + column.ToString());
                     Console.WriteLine();
                     Console.WriteLine(computerGuess);
@@ -63,17 +70,13 @@ namespace TicTacToe
                     board[row, column] = playerTurn;
                     playerTurn = (playerTurn == "X") ? "O" : "X";
                     turnTicker++;
-                }
-
-                //increment "turn" every two moves
-                if ((turnTicker % 2) == 0)
-                {
-                    turns++;
+                    if ((turnTicker % 2) == 0)
+                    {
+                        turns++;
+                    }
                 }
 
                 //check for win
-                string winner = "n";
-                string tie = "n";
                 if (turns >= 3)
                 {
                     tie = checkTie(board);
@@ -123,7 +126,7 @@ namespace TicTacToe
             }
             if (playAgain)
             {
-                playGame(xWins, oWins, timesTied);
+                playGame(xWins, oWins, timesTied, winner, automaticPlay, level);
             }
         }
 
@@ -257,10 +260,30 @@ namespace TicTacToe
                 return checkValue;
             }
         }
-
-
+        public static int manualSelect(string player, bool marker)
+        {
+            int selection;
+            if (marker)
+            {
+                Console.WriteLine("player {0}'s turn!", player);
+                Console.Write("Enter Row: ");
+                selection = Int32.Parse(Console.ReadLine());
+            }
+            else
+            {
+                Console.Write("Enter Column: ");
+                selection = Int32.Parse(Console.ReadLine());
+            }
+            return selection;
+        }
+        //The "AI"
         private static readonly Random getrandom = new Random();
-        public static int autoSelect()
+        public static int autoSelect(string[,] board, int level, string playerTurn)
+        {
+            return easyAI();
+        }
+
+        public static int easyAI()
         {
             int aiGuess = getrandom.Next(0, 31);
             int guess = 0;
@@ -278,22 +301,88 @@ namespace TicTacToe
             }
             return guess;
         }
-        public static int manualSelect(string player, bool marker)
+
+        public static int mediumAI(string[,] board, string playerTurn)
         {
-            int selection;
-            if (marker)
+            string checkForWin = lookForWin(board, playerTurn);
+        }
+
+        public static string lookForWin(string[,] board, string playerTurn)
+        {
+            string potentialRowVictory = checkRowpotential(board, playerTurn);
+            string potentialColumnVictory = checkColumnpotential(board, playerTurn);
+        }
+        public static string checkRowpotential(string[,] board, string playerTurn)
+        {
+            string valueToReturn = "3,3"; ;
+            for (int i = 0; i < 3; i++)
             {
-                Console.WriteLine("player {0}'s turn!", player);
-                Console.Write("Enter Row: ");
-                selection = Int32.Parse(Console.ReadLine());
+                if (String.IsNullOrWhiteSpace(board[i, 0]))
+                {
+                    if (board[i, 1] == board[i, 2] && board[i, 1] == playerTurn)
+                    {
+                        valueToReturn = i + ",0";
+                    }
+                }
+                else if (String.IsNullOrWhiteSpace(board[i, 1]))
+                {
+                    if (board[i, 0] == board[i, 2] && board[i, 0] == playerTurn)
+                    {
+
+                        valueToReturn = i + ",1";
+                    }
+                }
+                else if (String.IsNullOrWhiteSpace(board[i, 2]))
+                {
+                    if (board[i, 1] == board[i, 0] && board[i, 1] == playerTurn)
+                    {
+
+                        valueToReturn = i + ",2";
+                    }
+                }
+                else
+                {
+                    valueToReturn = "3,3";
+                }
             }
-            else
+            return valueToReturn;
+        }
+        public static string checkColumnpotential(string[,] board, string playerTurn)
+        {
+            string valueToReturn = "3,3"; ;
+            for (int i = 0; i < 3; i++)
             {
-                Console.Write("Enter Column: ");
-                selection = Int32.Parse(Console.ReadLine());
+                if (String.IsNullOrWhiteSpace(board[0, i]))
+                {
+                    if (board[1, i] == board[2, i] && board[1, i] == playerTurn)
+                    {
+                        valueToReturn = "0," + i;
+                    }
+                }
+                else if (String.IsNullOrWhiteSpace(board[1, i]))
+                {
+                    if (board[0, i] == board[2, i] && board[0, i] == playerTurn)
+                    {
+
+                        valueToReturn = "1," + i;
+                    }
+                }
+                else if (String.IsNullOrWhiteSpace(board[i, 2]))
+                {
+                    if (board[i, 1] == board[i, 0] && board[i, 1] == playerTurn)
+                    {
+
+                        valueToReturn = i + ",2";
+                    }
+                }
+                else
+                {
+                    valueToReturn = "3,3";
+                }
             }
-            return selection;
+            return valueToReturn;
         }
     }
 }
+
 
