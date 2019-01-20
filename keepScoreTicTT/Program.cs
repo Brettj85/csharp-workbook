@@ -26,8 +26,8 @@ namespace TicTacToe
             //keeps track of the question of manual turns
             bool marker = true;
             //keeps track of a full turn rotation
-            int turnTicker = 1;
-            int turn = 1;
+            int turnTicker = 0;
+            int turns = 0;
             while (!win)
             {
                 //Make the Board
@@ -68,13 +68,13 @@ namespace TicTacToe
                 //increment "turn" every two moves
                 if ((turnTicker % 2) == 0)
                 {
-                    turn++;
+                    turns++;
                 }
 
                 //check for win
                 string winner = "n";
                 string tie = "n";
-                if (turn >= 3)
+                if (turns >= 3)
                 {
                     tie = checkTie(board);
                     winner = checkWin(board);
@@ -85,7 +85,7 @@ namespace TicTacToe
                     xWins++;
                     Console.Clear();
                     printBoard(board);
-                    Console.WriteLine("X is the winner!");
+                    Console.WriteLine("After {0} turns X is victorious!", turns);
                     Console.WriteLine();
                     Console.WriteLine("There have been {0} Ties the score is", timesTied);
                     Console.WriteLine("X: {0}", xWins);
@@ -98,7 +98,7 @@ namespace TicTacToe
                     oWins++;
                     Console.Clear();
                     printBoard(board);
-                    Console.WriteLine("O is the winner!");
+                    Console.WriteLine("After {0} turns O is victorious!", turns);
                     Console.WriteLine();
                     Console.WriteLine("There have been {0} Ties the score is", timesTied);
                     Console.WriteLine("X: {0}", xWins);
@@ -111,7 +111,7 @@ namespace TicTacToe
                     timesTied++;
                     Console.Clear();
                     printBoard(board);
-                    Console.WriteLine("We have a Tie!");
+                    Console.WriteLine("After {0} turns We have a Tie!", turns);
                     Console.WriteLine("There have been {0} Ties the score is", timesTied);
                     Console.WriteLine("X: {0}", xWins);
                     Console.WriteLine("O: {0}", oWins);
@@ -257,6 +257,8 @@ namespace TicTacToe
                 return checkValue;
             }
         }
+
+
         private static readonly Random getrandom = new Random();
         public static int autoSelect()
         {
