@@ -6,12 +6,52 @@ namespace TicTacToe
     {
         public static void Main()
         {
-            bool vsAI = true;
-            int level = 1;
-            playGame(0, 0, 0, "x", vsAI, level);
+            bool playerOneAI = false;
+            bool playerTwoAI = true;
+            int levelOne = 1;
+            int levelTwo = 1;
+
+            Console.WriteLine("Is player 1 an AI y/n");
+            string answer = Console.ReadLine();
+            if (answer.Substring(0, 1).ToLower() == "y")
+            {
+                playerOneAI = true;
+                Console.WriteLine("Which difficulty level");
+                Console.WriteLine("Easy: 0 | Medium: 1 | Hard: 2");
+                int difficultyRequest = Convert.ToInt32(Console.ReadLine());
+                if (difficultyRequest == 0 || Convert.ToInt32(difficultyRequest) == 1 || Convert.ToInt32(difficultyRequest) == 2)
+                {
+                    levelOne = Convert.ToInt32(difficultyRequest);
+                }
+
+            }
+            else
+            {
+                playerOneAI = false;
+            }
+            Console.WriteLine("Is player 2 an AI y/n");
+            string answerTwo = Console.ReadLine();
+            if (answer.Substring(0, 1).ToLower() == "y")
+            {
+                playerOneAI = true;
+                Console.WriteLine("Which difficulty level");
+                Console.WriteLine("Easy: 0 | Medium: 1 | Hard: 2");
+                int difficultyRequest = Convert.ToInt32(Console.ReadLine());
+                if (difficultyRequest == 0 || Convert.ToInt32(difficultyRequest) == 1 || Convert.ToInt32(difficultyRequest) == 2)
+                {
+                    levelTwo = Convert.ToInt32(difficultyRequest);
+                }
+
+            }
+            else
+            {
+                playerOneAI = false;
+            }
+
+            playGame(0, 0, 0, "x", playerOneAI, playerTwoAI, levelOne, levelTwo);
         }
 
-        public static void playGame(int x, int o, int t, string previousWinner, bool vsAI, int level)
+        public static void playGame(int x, int o, int t, string previousWinner, bool playerOneAI, bool playerTwoAI, int levelOne, int levelTwo)
         {
             //keep track of wins and ties
             int xWins = x;
@@ -28,7 +68,10 @@ namespace TicTacToe
             string tie = "n";
             string[,] board = new string[3, 3];
 
-            bool automaticPlay = true;
+            bool isOneAI = playerOneAI;
+            bool isTwoAI = playerTwoAI;
+            int playerOnelevel = levelOne;
+            int playerTwolevel = levelTwo;
             bool playAgain = true;
             //keeps track of the question of manual turns
             bool marker = true;
@@ -43,11 +86,23 @@ namespace TicTacToe
                 //determine if its an NPC or human, and collect the row and column choice. 
                 int row;
                 int column;
-                if (automaticPlay && playerTurn == "O")
+                if (isTwoAI && playerTurn == "O")
                 {
-                    string selectedSpot = autoSelect(board, level, playerTurn);
-                    column = 1;
-                    row = 1;
+                    string selectedSpot = autoSelect(board, playerTwolevel, playerTurn);
+
+                    row = (Convert.ToInt32(selectedSpot.Substring(0, 1)));
+                    column = (Convert.ToInt32(selectedSpot.Substring(2, 1))); ;
+                    string computerGuess = (playerTurn + " guess is: " + row.ToString() + " , " + column.ToString());
+                    Console.WriteLine();
+                    Console.WriteLine(computerGuess);
+                    Console.WriteLine();
+                }
+                else if (isOneAI && playerTurn == "X")
+                {
+                    string selectedSpot = autoSelect(board, playerOnelevel, playerTurn);
+
+                    row = (Convert.ToInt32(selectedSpot.Substring(0, 1)));
+                    column = (Convert.ToInt32(selectedSpot.Substring(2, 1))); ;
                     string computerGuess = (playerTurn + " guess is: " + row.ToString() + " , " + column.ToString());
                     Console.WriteLine();
                     Console.WriteLine(computerGuess);
@@ -127,7 +182,7 @@ namespace TicTacToe
             }
             if (playAgain)
             {
-                playGame(xWins, oWins, timesTied, winner, automaticPlay, level);
+                playGame(xWins, oWins, timesTied, winner, isOneAI, isTwoAI, playerOnelevel, playerTwolevel);
             }
         }
 
@@ -277,8 +332,9 @@ namespace TicTacToe
             }
             return selection;
         }
-        //The "AI"
+        //The "AI" 3 levels
         private static readonly Random getrandom = new Random();
+
         public static string autoSelect(string[,] board, int level, string playerTurn)
         {
 
@@ -287,6 +343,11 @@ namespace TicTacToe
             {
                 computerGuess = easyAI() + "," + easyAI();
             }
+            else if (level == 1)
+            {
+                computerGuess = mediumAI(board, playerTurn);
+            }
+            //return appropriate level AI's choice
             return computerGuess;
         }
 
@@ -309,22 +370,52 @@ namespace TicTacToe
             return guess;
         }
 
-        public static int mediumAI(string[,] board, string playerTurn)
+        public static string mediumAI(string[,] board, string playerTurn)
         {
-            string checkForWin = lookForWin(board, playerTurn);
-
             string opponentTurn = (playerTurn == "X") ? "O" : "X";
+            string checkForWin = lookForWin(board, playerTurn);
             string checkForBlock = lookForWin(board, opponentTurn);
+
+            if (checkForWin != "n")
+            {
+                return checkForWin;
+            }
+            else if (checkForBlock != "n")
+            {
+                return checkForBlock;
+            }
+            else
+            {
+                return easyAI() + "," + easyAI();
+            }
         }
 
         public static string lookForWin(string[,] board, string playerTurn)
         {
             string potentialRowVictory = checkRowpotential(board, playerTurn);
             string potentialColumnVictory = checkColumnpotential(board, playerTurn);
+            string potentialDiagVictory = checkDiagPotential(board, playerTurn);
+
+            string returnValue = "n";
+
+            //check each
+            if (potentialRowVictory != "n")
+            {
+                returnValue = potentialRowVictory;
+            }
+            else if (potentialColumnVictory != "n")
+            {
+                returnValue = potentialColumnVictory;
+            }
+            else if (potentialDiagVictory != "n")
+            {
+                returnValue = potentialDiagVictory;
+            }
+            return returnValue;
         }
         public static string checkRowpotential(string[,] board, string playerTurn)
         {
-            string valueToReturn = "n"; ;
+            string valueToReturn = "n";
             for (int i = 0; i < 3; i++)
             {
                 if (String.IsNullOrWhiteSpace(board[i, 0]))
@@ -332,6 +423,12 @@ namespace TicTacToe
                     if (board[i, 1] == board[i, 2] && board[i, 1] == playerTurn)
                     {
                         valueToReturn = i + ",0";
+                        int row = (Convert.ToInt32(valueToReturn.Substring(0, 1)));
+                        int column = (Convert.ToInt32(valueToReturn.Substring(2, 1))); ;
+                        if (isTaken(board, row, column))
+                        {
+                            valueToReturn = "n";
+                        }
                     }
                 }
                 else if (String.IsNullOrWhiteSpace(board[i, 1]))
@@ -340,6 +437,12 @@ namespace TicTacToe
                     {
 
                         valueToReturn = i + ",1";
+                        int row = (Convert.ToInt32(valueToReturn.Substring(0, 1)));
+                        int column = (Convert.ToInt32(valueToReturn.Substring(2, 1))); ;
+                        if (isTaken(board, row, column))
+                        {
+                            valueToReturn = "n";
+                        }
                     }
                 }
                 else if (String.IsNullOrWhiteSpace(board[i, 2]))
@@ -348,11 +451,18 @@ namespace TicTacToe
                     {
 
                         valueToReturn = i + ",2";
+                        int row = (Convert.ToInt32(valueToReturn.Substring(0, 1)));
+                        int column = (Convert.ToInt32(valueToReturn.Substring(2, 1))); ;
+                        if (isTaken(board, row, column))
+                        {
+                            valueToReturn = "n";
+                        }
                     }
                 }
                 else
                 {
                     valueToReturn = "n";
+
                 }
             }
             return valueToReturn;
@@ -367,6 +477,12 @@ namespace TicTacToe
                     if (board[1, i] == board[2, i] && board[1, i] == playerTurn)
                     {
                         valueToReturn = "0," + i;
+                        int row = (Convert.ToInt32(valueToReturn.Substring(0, 1)));
+                        int column = (Convert.ToInt32(valueToReturn.Substring(2, 1))); ;
+                        if (isTaken(board, row, column))
+                        {
+                            valueToReturn = "n";
+                        }
                     }
                 }
                 else if (String.IsNullOrWhiteSpace(board[1, i]))
@@ -375,6 +491,12 @@ namespace TicTacToe
                     {
 
                         valueToReturn = "1," + i;
+                        int row = (Convert.ToInt32(valueToReturn.Substring(0, 1)));
+                        int column = (Convert.ToInt32(valueToReturn.Substring(2, 1))); ;
+                        if (isTaken(board, row, column))
+                        {
+                            valueToReturn = "n";
+                        }
                     }
                 }
                 else if (String.IsNullOrWhiteSpace(board[i, 2]))
@@ -383,6 +505,12 @@ namespace TicTacToe
                     {
 
                         valueToReturn = "2," + i;
+                        int row = (Convert.ToInt32(valueToReturn.Substring(0, 1)));
+                        int column = (Convert.ToInt32(valueToReturn.Substring(2, 1))); ;
+                        if (isTaken(board, row, column))
+                        {
+                            valueToReturn = "n";
+                        }
                     }
                 }
                 else
@@ -392,7 +520,67 @@ namespace TicTacToe
             }
             return valueToReturn;
         }
+        public static string checkDiagPotential(string[,] board, string playerTurn)
+        {
+            string valueToReturn = "n"; ;
+            string[,] testBoard = board;
+            for (int i = 0; i > 2; i++)
+            {
+                testBoard[i, i] = playerTurn;
+                if (checkDiagonal(testBoard) != "n")
+                {
+                    valueToReturn = i.ToString() + "," + i.ToString();
+                    int row = (Convert.ToInt32(valueToReturn.Substring(0, 1)));
+                    int column = (Convert.ToInt32(valueToReturn.Substring(2, 1))); ;
+                    if (isTaken(board, row, column))
+                    {
+                        valueToReturn = "n";
+                    }
+                }
+                testBoard[i, i] = board[i, i];
+            }
+            if (valueToReturn != "n")
+            {
+                testBoard[0, 2] = playerTurn;
+                if (checkDiagonal(testBoard) != "n")
+                {
+                    valueToReturn = "0,2";
+                    int row = (Convert.ToInt32(valueToReturn.Substring(0, 1)));
+                    int column = (Convert.ToInt32(valueToReturn.Substring(2, 1))); ;
+                    if (isTaken(board, row, column))
+                    {
+                        valueToReturn = "n";
+                    }
+                }
+                testBoard[0, 2] = board[0, 2];
+                testBoard[1, 1] = playerTurn;
+                if (checkDiagonal(testBoard) != "n")
+                {
+                    valueToReturn = "1,1";
+                    int row = (Convert.ToInt32(valueToReturn.Substring(0, 1)));
+                    int column = (Convert.ToInt32(valueToReturn.Substring(2, 1))); ;
+                    if (isTaken(board, row, column))
+                    {
+                        valueToReturn = "n";
+                    }
+                }
+                testBoard[1, 1] = board[1, 1];
+                testBoard[2, 0] = playerTurn;
+                if (checkDiagonal(testBoard) != "n")
+                {
+                    valueToReturn = "2,0";
+                    int row = (Convert.ToInt32(valueToReturn.Substring(0, 1)));
+                    int column = (Convert.ToInt32(valueToReturn.Substring(2, 1))); ;
+                    if (isTaken(board, row, column))
+                    {
+                        valueToReturn = "n";
+                    }
+                }
+            }
+            return valueToReturn;
+        }
     }
 }
+
 
 
