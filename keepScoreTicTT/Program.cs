@@ -6,6 +6,20 @@ namespace TicTacToe
     {
         public static void Main()
         {
+            mainMenu();
+        }
+        public static void mainMenu()
+        {
+            Console.WriteLine("*************************************************");
+            Console.WriteLine("*                   Main Menu                   *");
+            Console.WriteLine("*                                               *");
+            Console.WriteLine("*   Play Games: p               View Games: v   *");
+            Console.WriteLine("*                                               *");
+            Console.WriteLine("*************************************************");
+
+        }
+        public static void setupGame()
+        {
             bool playerOneAI = false;
             bool playerTwoAI = true;
             int levelOne = 1;
@@ -47,7 +61,8 @@ namespace TicTacToe
             {
                 playerOneAI = false;
             }
-
+            // how many times do you want the game to run then loop that many times
+            //string pullResults = 
             playGame(0, 0, 0, "x", playerOneAI, playerTwoAI, levelOne, levelTwo);
         }
 
