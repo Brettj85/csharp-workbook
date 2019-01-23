@@ -23,6 +23,7 @@ namespace Checkpoint1
                     playerNumbersList.Add(Convert.ToInt32(userResponse));
                 }
             }
+            // put all results here
             int result = 0;
             for (int i = 0; i < playerNumbersList.Count; i++)
             {
