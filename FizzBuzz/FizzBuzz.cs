@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Linq;
+using System.Collections.Generic;
 
 namespace FizzBuzz
 {
@@ -8,23 +10,22 @@ namespace FizzBuzz
         {
             for (int i = 1; i < 100; i++)
             {
-                if (i % 3 == 0 && i % 5 == 0)
+                if (i % 3 == 0)
                 {
-                    Console.WriteLine("FIZZBUZZ");
+                    Console.Write("FIZZ");
                 }
-                else if (i % 3 == 0)
+                if (i % 5 == 0)
                 {
-                    Console.WriteLine("FIZZ");
+                    Console.Write("BUZZ");
                 }
-                else if (i % 5 == 0)
+                if (i % 3 != 0 && i % 5 != 0)
                 {
-                    Console.WriteLine("BUZZ");
+                    Console.Write(i);
                 }
-                else
-                {
-                    Console.WriteLine(i);
-                }
+                Console.Write("\n\r");
             }
+            // Enumerable.Range(1, 100).Select(n => new Dictionary<int, string>
+            //     { {15, "FizzBuzz"}, {3, "Fizz"}, {5, "Buzz"}, {1, n.ToString()} }.First(kv => n % kv.Key == 0).Value).ToList().ForEach(Console.WriteLine);
         }
     }
 }
