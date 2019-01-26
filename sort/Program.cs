@@ -6,19 +6,18 @@ namespace sort
     {
         static void Main(string[] args)
         {
-            int[] arrToSort = new int[20] { 3, 64, 5, 6, 677, 8, 889, 44, 33, 2, 2221, 44, 55, 6, 77, 88, 89, 45, 32, 6 };
-            int[] sortedArray = SortArray(arrToSort);
-            for (int i = 0; i < sortedArray.Length; i++)
+            int[] arrayToSort = new int[20] { 3, 64, 5, 6, 677, 8, 889, 44, 33, 2, 2221, 44, 55, 6, 77, 88, 89, 45, 32, 6 };
+            SortArray(arrayToSort);
+            for (int i = 0; i < arrayToSort.Length; i++)
             {
-                Console.Write("{0}, ", sortedArray[i]);
+                Console.Write("{0}, ", arrayToSort[i]);
             }
 
         }
 
-        public static int[] SortArray(int[] array)
+        public static void Sortparts(int[] array)
         {
             //sort the array here
-            int[] sortedArray = array;
             int min;
             for (int i = 0; i < array.Length; i++)
             {
@@ -29,11 +28,10 @@ namespace sort
                     {
                         min = j;
                         int placeHolder = array[i];
-                        sortedArray[i] = array[min];
+                        array[i] = array[min];
                     }
                 }
             }
-            return sortedArray;
         }
     }
 }
