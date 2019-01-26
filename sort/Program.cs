@@ -5,6 +5,7 @@ namespace sort
 {
     class Program
     {
+        //restarting
         static void Main(string[] args)
         {
             int[] arrayToSort = new int[20] { 3, 64, 5, 6, 677, 8, 889, 44, 33, 2, 2221, 44, 55, 6, 77, 88, 89, 45, 32, 6 };
