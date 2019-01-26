@@ -5,9 +5,9 @@ namespace TicTacToe
 {
     public class Menu
     {
-        public static void mainMenu(string[,][] returnedResults)
+        public static void mainMenu(string[][,] returnedResults)
         {
-            int howMany = Convert.ToInt32(returnedResults[0, 0][0]);
+            int howMany = Convert.ToInt32(returnedResults[0][0, 0]);
             Console.WriteLine("*************************************************");
             Console.WriteLine("*                   Main Menu                   *");
             Console.WriteLine("*                                               *");
@@ -41,7 +41,7 @@ namespace TicTacToe
             }
 
         }
-        public static string[,][] setupGame()
+        public static string[][,] setupGame()
         {
             bool playerOneAI = false;
             bool playerTwoAI = true;
@@ -91,16 +91,18 @@ namespace TicTacToe
             Console.WriteLine("*           Enter a number: 1 and 500           *");
             Console.WriteLine("*                                               *");
             Console.WriteLine("*************************************************");
+
             int gameAmount = (Convert.ToInt32(Console.ReadLine()));
-            string[,][] gameResults = new string[3, 3][];
+
+            string[][,] gameResults = new string[gameAmount][,];
             //string[,][] = new string[,][]; an array of arrays
             // p = new 
             // ask about dynamic creating array lengths
-            for (int i = 0; i < gameAmount; i++)
+            for (int i = 1; i == gameAmount; i++)
             {
                 string[,] gameStorage = new string[3, 3];
-                gameStorage = runGame.playGame(0, 0, 0, "x", playerOneAI, playerTwoAI, levelOne, levelTwo);
-                gameResults[3, 3][i] = gameStorage;
+                gameResults[i] = runGame.playGame(0, 0, 0, "x", playerOneAI, playerTwoAI, levelOne, levelTwo);
+
             }
             return gameResults;
         }

@@ -7,7 +7,8 @@ namespace TicTacToe
     {
         public static void Main()
         {
-            string[,][] returnedResults = new string[3, 3][];
+            string[][,] returnedResults = new string[1][,];
+
             Menu.mainMenu(returnedResults);
         }
     }
