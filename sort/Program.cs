@@ -14,6 +14,7 @@ namespace sort
         public static int[] SortArray(int[] array)
         {
             //sort the array here
+            int[] sortedArray = array;
             int min;
             for (int i = 0; i < array.Length; i++)
             {
@@ -23,8 +24,8 @@ namespace sort
                     if (array[j] > array[min])
                     {
                         min = j;
-                        //need to swap these 2 without losing one
-                        // array[i] / array[min];
+                        int placeHolder = array[i]
+                        sortedArray[i] = array[min];
                     }
                 }
             }
