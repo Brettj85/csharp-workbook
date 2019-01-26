@@ -22,7 +22,7 @@ namespace FizzBuzz
                 {
                     Console.Write(i);
                 }
-                Console.Write("\n\r");
+                Console.Write("\n");
             }
             // Enumerable.Range(1, 100).Select(n => new Dictionary<int, string>
             //     { {15, "FizzBuzz"}, {3, "Fizz"}, {5, "Buzz"}, {1, n.ToString()} }.First(kv => n % kv.Key == 0).Value).ToList().ForEach(Console.WriteLine);
