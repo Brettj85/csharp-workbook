@@ -8,6 +8,10 @@ namespace sort
         {
             int[] arrToSort = new int[20] { 3, 64, 5, 6, 677, 8, 889, 44, 33, 2, 2221, 44, 55, 6, 77, 88, 89, 45, 32, 6 };
             int[] sortedArray = SortArray(arrToSort);
+            for (int i = 0; i < sortedArray.Length; i++)
+            {
+                Console.Write("{0}, ", sortedArray[i]);
+            }
 
         }
 
@@ -24,12 +28,12 @@ namespace sort
                     if (array[j] > array[min])
                     {
                         min = j;
-                        int placeHolder = array[i]
+                        int placeHolder = array[i];
                         sortedArray[i] = array[min];
                     }
                 }
             }
-            return array;
+            return sortedArray;
         }
     }
 }
