@@ -22,10 +22,10 @@ public class SortWithMultiThread
         //split-half sort array into 2 sub arrays 1 containg the numbers that are > than average and one <= average 
         int[] arrayToSort = new int[20] { 13, 57, 34, 151, 70, 68, 222, 149, 64, 165, 1, 5, 4, 11, 20, 8, 2, 98, 90, 16 };
 
-        int[] smallerThanAverage = new int[20];
+        int[] smallerThanAverage = new int[arrayToSort.Length];
         int average;
         int indexOfLowerHalf = 0;
-        int indexOfHigherHalf = 19;
+        int indexOfHigherHalf = arrayToSort.Length - 1;
         int sum = arrayToSort.Sum();
         average = sum / arrayToSort.Length;
 
@@ -42,10 +42,9 @@ public class SortWithMultiThread
                 indexOfHigherHalf--;
             }
         }
-
-        int[] asyncSortThis = new int[10];
+        int[] asyncSortThis = new int[(smallerThanAverage.Length / 2) - 1];
         int j = 0;
-        for (int i = 11; i < smallerThanAverage.Length; i++)
+        for (int i = (smallerThanAverage.Length / 2) + 1; j < asyncSortThis.Length; i++)
         {
             asyncSortThis[j] = smallerThanAverage[i];
             j++;
