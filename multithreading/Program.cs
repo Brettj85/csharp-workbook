@@ -30,7 +30,7 @@ public class SortWithMultiThread
 
         for (int i = 0; i < arrayToSort.Length; i++)
         {
-            if (arrayToSort[i] <= sum)
+            if (arrayToSort[i] <= average)
             {
                 smallerThanAverage[indexOfHalf] = arrayToSort[i];
                 indexOfHalf++;
@@ -40,6 +40,7 @@ public class SortWithMultiThread
                 smallerThanAverage[20 - indexOfHalf] = arrayToSort[i];
             }
         }
+
         int[] asyncSortThis = new int[10];
         int j = 0;
         for (int i = 11; i < smallerThanAverage.Length; i++)
