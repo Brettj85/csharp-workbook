@@ -1,5 +1,5 @@
 ﻿using System;
-using System.Threading;
+using System.Threading.Tasks;
 using System.Linq;
 
 
@@ -8,6 +8,11 @@ public class SortWithMultiThread
 {
     //used for sorting an arr of unique values
     public static int[] PartialSort(int[] arr)
+    {
+
+    }
+
+    static async Task SplitAgain(int[] arr)
     {
         int[] arrayToSort = arr;
 
@@ -33,13 +38,13 @@ public class SortWithMultiThread
         }
         int[] asyncSortThis = new int[(smallerThanAverage.Length / 2) - 1];
         int j = 0;
-        for (int i = (smallerThanAverage.Length / 2) + 1; j < asyncSortThis.Length; i++)
+        for (int i = smallerThanAverage.Length / 2; j < asyncSortThis.Length; i++)
         {
             asyncSortThis[j] = smallerThanAverage[i];
             j++;
         }
         int[] smallerArr = asyncSortThis;
-        return smallerArr;
+
     }
 
     public static void Main()
@@ -56,20 +61,15 @@ public class SortWithMultiThread
             j++;
         }
 
-
         // The constructor for a Thread.        
-        Thread sortingThread = new Thread(new ThreadStart(() => PartialSort(asyncSortThis)));
+        //Thread sortingThread = new Thread(new ThreadStart(() => PartialSort(asyncSortThis)));
         //start thread
-        sortingThread.Start();
+        //sortingThread.Start();
 
-        PartialSort(int[] arr);
-        // Yield the rest of the time slice.
-        Thread.Sleep(0);
-
-
-        //join threads
-        sortingThread.Join();
-        //Join has returned
+        int[] firstHalf = PartialSort(splitHalf);
+        //Thread.Sleep(0);
+        //sortingThread.Join();
+        //int[] secondHalf = smallerArr;//??
         Console.ReadLine();
     }
 }
