@@ -6,56 +6,48 @@ namespace TicTacToe
     {
         public static void Main()
         {
+            string playerTurn = "X";
+            int turn = 0;
+            string[,] board = new string[3, 3];
             bool win = false;
             while (!win)
             {
-                string playerTurn = "X";
-                int turn = 0;
-                string[,] board = new string[3, 3];
-
-                for (int i = 1; i <= 9; i++)
+                printBoard(board);
+                Console.WriteLine("Player " + playerTurn);
+                Console.WriteLine("Enter Row:");
+                int row = Int32.Parse(Console.ReadLine());
+                Console.WriteLine("Enter Column:");
+                int column = Int32.Parse(Console.ReadLine());
+                Console.Clear();
+                //check if that spot is taken
+                if (isTaken(board, row, column))
                 {
-                    printBoard(board);
-                    Console.WriteLine("Player " + playerTurn);
-                    Console.WriteLine("Enter Row:");
-                    int row = Int32.Parse(Console.ReadLine());
-                    Console.WriteLine("Enter Column:");
-                    int column = Int32.Parse(Console.ReadLine());
-                    Console.Clear();
-                    //check if that spot is taken
-                    if (isTaken(board, row, column))
-                    {
-                        Console.WriteLine("Sorry that spot is taken");
-                    }
-                    else
-                    {
-                        board[row, column] = playerTurn;
-                        playerTurn = (playerTurn == "X") ? "O" : "X";
-                    }
-
-                    if ((2 % i) == 0)
-                    {
-                        turn++;
-                    }
-
-                    string winner = "n";
-                    if (i >= 3)
-                    {
-                        Console.WriteLine("checking winner");
-                        winner = checkWin(board);
-                    }
-
-                    if (i >= 7)
-                    {
-                        winner = checkTie(board);
-                    }
-
-                    if (winner == "X" || winner == "O")
-                    {
-                        win = true;
-                        break;
-                    }
+                    Console.WriteLine("Sorry that spot is taken");
                 }
+                else
+                {
+                    board[row, column] = playerTurn;
+                    playerTurn = (playerTurn == "X") ? "O" : "X";
+                    turn++;
+                }
+
+                string winner = "n";
+                winner = checkWin(board);
+                winner = checkTie(board);
+
+
+
+                if (winner == "X" || winner == "O")
+                {
+                    Console.WriteLine("The winner is {0}", winner);
+                    win = true;
+                }
+                else if (winner == "T")
+                {
+                    Console.WriteLine("Its a Tie!")
+                        win = true;
+                }
+
             }
 
         }
@@ -155,7 +147,7 @@ namespace TicTacToe
                 }
                 return "t";
             }
-            return "n";
+            return winner;
         }
         public static void printBoard(string[,] board)
         {
