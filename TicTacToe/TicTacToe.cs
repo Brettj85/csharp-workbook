@@ -56,8 +56,6 @@ namespace TicTacToe
                         break;
                     }
                 }
-
-                return;
             }
 
         }
@@ -137,12 +135,27 @@ namespace TicTacToe
 
         public static string checkTie(string[,] board)
         {
+            string winner = checkWin(board);
+            if (winner == "n")
+            {
+                for (int i = 0; i < 8; i++)
+                {
+                    if (String.IsNullOrEmpty(board[i, 0]))
+                    {
+                        return "n";
+                    }
+                    else if (String.IsNullOrEmpty(board[i, 1]))
+                    {
+                        return "n";
+                    }
+                    else if (String.IsNullOrEmpty(board[i, 2]))
+                    {
+                        return "n";
+                    }
+                }
+                return "t";
+            }
             return "n";
-        }
-
-        public static void showBoard(string[,] board)
-        {
-            return;
         }
         public static void printBoard(string[,] board)
         {
