@@ -6,37 +6,20 @@ namespace TicTacToe
     {
         public static void Main()
         {
+            playGame();
+        }
+        public static void playGame()
+        {
             string playerTurn = "X";
-            int turn = 0;
+            string winner = "n";
             string[,] board = new string[3, 3];
             bool win = false;
             while (!win)
             {
-                printBoard(board);
-                Console.WriteLine("Player " + playerTurn);
-                Console.WriteLine("Enter Row:");
-                int row = Int32.Parse(Console.ReadLine());
-                Console.WriteLine("Enter Column:");
-                int column = Int32.Parse(Console.ReadLine());
-                Console.Clear();
-                //check if that spot is taken
-                if (isTaken(board, row, column))
-                {
-                    Console.WriteLine("Sorry that spot is taken");
-                }
-                else
-                {
-                    board[row, column] = playerTurn;
-                    playerTurn = (playerTurn == "X") ? "O" : "X";
-                    turn++;
-                }
-
-                string winner = "n";
+                board = selectSpot(board, playerTurn);
+                playerTurn = (playerTurn == "X") ? "O" : "X";
                 winner = checkWin(board);
                 winner = checkTie(board);
-
-
-
                 if (winner == "X" || winner == "O")
                 {
                     Console.WriteLine("The winner is {0}", winner);
@@ -44,23 +27,58 @@ namespace TicTacToe
                 }
                 else if (winner == "T")
                 {
-                    Console.WriteLine("Its a Tie!")
-                        win = true;
+                    Console.WriteLine("Its a Tie!");
+                    win = true;
+                }
+            }
+        }
+
+        public static string[,] selectSpot(string[,] board, string playerTurn)
+        {
+            int row = 10;
+            int column = 10;
+            bool controller = true;
+            while (controller)
+            {
+                printBoard(board);
+                Console.WriteLine("Player " + playerTurn);
+                Console.WriteLine("Enter Row:");
+                row = Int32.Parse(Console.ReadLine());
+                Console.WriteLine("Enter Column:");
+                column = Int32.Parse(Console.ReadLine());
+
+                if (isTaken(board, row, column))
+                {
+                    Console.WriteLine("sorry that spot is taken");
+                }
+                else
+                {
+                    controller = false;
                 }
 
             }
+
+            board[row, column] = playerTurn;
+            return board;
 
         }
 
         public static bool isTaken(string[,] board, int row, int column)
         {
-            if (String.IsNullOrEmpty(board[row, column]))
+            if (row != 10)
             {
-                return false;
+                if (String.IsNullOrEmpty(board[row, column]))
+                {
+                    return false;
+                }
+                else
+                {
+                    return true;
+                }
             }
             else
             {
-                return true;
+                return false;
             }
         }
 
