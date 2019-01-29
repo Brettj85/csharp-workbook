@@ -8,18 +8,17 @@ namespace candles
         {
             int[] numberOfCandles = { 1, 2, 4, 8, 8, 6 };
             int tallest = 1;
-            int howManyCandles = numberOfCandles.Length;
-            int j = 1;
+            int howManyCandles = 1;
             foreach (var num in numberOfCandles)
             {
                 if (num > tallest)
                 {
                     tallest = num;
-                    j = 1;
+                    howManyCandles = 1;
                 }
                 else if (num == tallest)
                 {
-                    j++;
+                    howManyCandles++;
                 }
             }
 
