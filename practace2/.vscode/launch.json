@@ -9,7 +9,7 @@
             "type": "coreclr",
             "request": "launch",
             "preLaunchTask": "build",
-            "program": "${workspaceFolder}/bin/Debug/netcoreapp2.0/HelloWorld.dll",
+            "program": "${workspaceFolder}/bin/Debug/netcoreapp2.2/practace2.dll",
             "args": [],
             "cwd": "${workspaceFolder}",
             "console": "integratedTerminal",
