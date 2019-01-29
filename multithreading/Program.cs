@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Threading.Tasks;
+using System.Collections.Generic;
 using System.Linq;
 
 
@@ -49,7 +50,6 @@ public class SortWithMultiThread
 
     public static void Main()
     {
-        //split-half sort array into 2 sub arrays 1 containg the numbers that are > than average and one <= average 
         int[] inputArray = new int[20] { 13, 57, 34, 151, 70, 68, 222, 149, 64, 165, 1, 5, 4, 11, 20, 8, 2, 98, 90, 16 };
         int[] splitHalf = PartialSort(inputArray);
 
@@ -60,16 +60,21 @@ public class SortWithMultiThread
             asyncSortThis[j] = splitHalf[i];
             j++;
         }
+    }
 
-        // The constructor for a Thread.        
-        //Thread sortingThread = new Thread(new ThreadStart(() => PartialSort(asyncSortThis)));
-        //start thread
-        //sortingThread.Start();
-
-        int[] firstHalf = PartialSort(splitHalf);
-        //Thread.Sleep(0);
-        //sortingThread.Join();
-        //int[] secondHalf = smallerArr;//??
-        Console.ReadLine();
+    public static async Task<List<int>> split(int[] nums)
+    {
+        var taskList = new List<Task<int>>();
+        foreach (var num in nums)
+        {
+            taskList.Add(SplitAgain(num));
+        }
+        await Task.WhenAll(taskList);
+        List<int> resp = new List<int>();
+        foreach (var tsk in taskList)
+        {
+            resp.Add(tsk.Result);
+        }
+        return resp;
     }
 }
