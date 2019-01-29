@@ -11,25 +11,33 @@ namespace TicTacToe
         public static void playGame()
         {
             string playerTurn = "X";
-            string winner = "n";
+            string isWinner = "n";
             string[,] board = new string[3, 3];
             bool win = false;
             while (!win)
             {
                 board = selectSpot(board, playerTurn);
                 playerTurn = (playerTurn == "X") ? "O" : "X";
-                winner = checkWin(board);
-                winner = checkTie(board);
-                if (winner == "X" || winner == "O")
-                {
-                    Console.WriteLine("The winner is {0}", winner);
-                    win = true;
-                }
-                else if (winner == "T")
-                {
-                    Console.WriteLine("Its a Tie!");
-                    win = true;
-                }
+                isWinner = checkWin(board);
+                isWinner = checkTie(board);
+                win = checkResult(isWinner);
+            }
+        }
+        public static bool checkResult(string winner)
+        {
+            if (winner == "X" || winner == "O")
+            {
+                Console.WriteLine("The winner is {0}", winner);
+                return true;
+            }
+            else if (winner == "T")
+            {
+                Console.WriteLine("Its a Tie!");
+                return true;
+            }
+            else
+            {
+                return false;
             }
         }
 
@@ -65,7 +73,7 @@ namespace TicTacToe
 
         public static bool isTaken(string[,] board, int row, int column)
         {
-            if (row != 10)
+            if (row != 10 || column != 10)
             {
                 if (String.IsNullOrEmpty(board[row, column]))
                 {
@@ -100,6 +108,7 @@ namespace TicTacToe
                 return "n";
             }
         }
+
         public static string checkHorizontal(string[,] board)
         {
             string isWinner = "n";
@@ -110,9 +119,7 @@ namespace TicTacToe
                     isWinner = board[i, 0];
                 }
             }
-            Console.WriteLine(isWinner);
             return isWinner;
-
         }
 
         public static string checkVertical(string[,] board)
@@ -148,17 +155,9 @@ namespace TicTacToe
             string winner = checkWin(board);
             if (winner == "n")
             {
-                for (int i = 0; i < 8; i++)
+                for (int i = 0; i < 3; i++)
                 {
-                    if (String.IsNullOrEmpty(board[i, 0]))
-                    {
-                        return "n";
-                    }
-                    else if (String.IsNullOrEmpty(board[i, 1]))
-                    {
-                        return "n";
-                    }
-                    else if (String.IsNullOrEmpty(board[i, 2]))
+                    if (String.IsNullOrEmpty(board[i, 0]) || String.IsNullOrEmpty(board[i, 1]) || String.IsNullOrEmpty(board[i, 2]))
                     {
                         return "n";
                     }
