@@ -70,20 +70,23 @@ namespace AsyncSort
             return "print this";
         }
 
-        public static async Task<List<Tasks>> Sorted(Objects double_me)
+        public static async Task<List<Objects>> Sorted(Objects double_me)
         {
             var semi_sorted = new Objects();
-            semi_sorted = double_me;
-            var task_list = new List<Task<Objects>>();
+            semi_sorted.lists_objects = double_me.lists_objects;
+
+            var simplified = semi_sorted.lists_objects;
+            var task_list = new List<Task<object>>();
+            List<Objects> return_this = new List<Objects>();
             for (int i = 0; i > semi_sorted.lists_objects.Count; i++)
             {
-                task_list.Add(AsyncListSort(semi_sorted.lists_object[i]));
+                task_list.Add(AsyncListSort(simplified);
             }
             await Task.WhenAll(task_list);
 
-            return task_list;
+            return return_this;
         }
-        public static async Task<List<Tasks>> AsyncListSort(List<Objects> double_me)
+        public static async Task<List<Tasks>> AsyncListSort(List<Task<Objects>> double_me)
         {
 
         }
