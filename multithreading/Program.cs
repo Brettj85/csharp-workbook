@@ -10,8 +10,7 @@ public class Program
         var value_to_sort = new List<int> { 4, 5, 10, 12, 14, 20, 1, 205, 26, 31, 120, 2, 3, 72, 40, 100, 140 };
         var split_lists = SplitList(value_to_sort);
         var returned_results = SplitMore(split_lists).Result;
-        // dont need this - var sorted_results = SortSplitValues(split_lists).Result;
-        string final_list = MergeSortedResults(returned_results);
+        var final_list = MergeSortedResults(returned_results);
 
         Console.WriteLine(final_list);
     }
@@ -32,14 +31,35 @@ public class Program
         }
         return partial_sort;
     }
-    public static List<int> MergeSortedResults(List<object> nums)
+    private static List<int> MergeSortedResults(List<ReturnedList> nums)
     {
 
         return num;
     }
-    public async Task<List<object>> SplitMore(object nums)
+    private async Task<List<ReturnedList>> SplitAgain(List<ReturnedList> numbers)
+    {
+
+    }
+
+    private async Task<List<int>> SplitMore(ReturnedList numbers)
     {
         //take in # of things to split
+        int length = numbers.less_than.Count() + numbers.greater_than.Count();
+        List<ReturnedList> split_numbers = new List<ReturnedList> { };
+        List<ReturnedList> multiplied_splits = new List<ReturnedList> { };
+        multiplied_splits[1] = numbers;
+        while (length >= split_numbers.Count())
+        {
+            for (int i = 0; i < multiplied_splits.Count(); i++)
+            {
+
+            }
+        }
+
+
+
+
+
         //loop through and do the following until there are 2 lists with 1 item each 
         //do this by splitting into x # of tasks with x # of tasks each. need a good peice of reusable code here. need to think about it...
         //split the larger side and the smaller side at the same time 
