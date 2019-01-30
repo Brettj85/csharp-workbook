@@ -3,76 +3,50 @@ using System.Threading.Tasks;
 using System.Collections.Generic;
 using System.Linq;
 
-public class Program
+namespace AsyncSort
 {
-    public static void Main()
+    public class Program
     {
-        var value_to_sort = new List<int> { 4, 5, 10, 12, 14, 20, 1, 205, 26, 31, 120, 2, 3, 72, 40, 100, 140 };
-        var split_lists = SplitList(value_to_sort);
-        var returned_results = SplitMore(split_lists).Result;
-        var final_list = MergeSortedResults(returned_results);
-
-        Console.WriteLine(final_list);
-    }
-    private static object SplitList(List<int> unsorted)
-    {
-        double average = unsorted.Average();
-        var partial_sort = new ReturnedList();
-        foreach (var num in unsorted)
+        public static void Main()
         {
-            if (num <= average)
+            var value_to_sort = new List<int> { 4, 5, 10, 12, 14, 20, 1, 205, 26, 31, 120, 2, 3, 72, 40, 100, 140 };
+            var split_lists = ReturnSortedValues(value_to_sort).results;
+            var final_list = MergeSortedResults(split_lists);
+
+            Console.WriteLine(final_list);
+        }
+
+        public static async Task<ReturnedObjects> SplitList(List<int> nums)
+        {
+            var convert_too_class = new ReturnedList();
+            var list_of_returns = new ReturnedObjects();
+
+            await ();
+        }
+        public async task<ReturnedObjects> ReturnSortedValues(List<int> nums)
+        {
+            double average = nums.Average();
+            List<ReturnedList> results = new List<ReturnedList>();
+            List<ReturnedObjects> return_objects = new List<ReturnedObjects>();
+            foreach (var num in nums)
             {
-                partial_sort.less_than.Add(num);
-            }
-            else
-            {
-                partial_sort.greater_than.Add(num);
+                if (num > average)
+                {
+                    results.less_than.add(num);
+                }
             }
         }
-        return partial_sort;
-    }
-    private static List<int> MergeSortedResults(List<ReturnedList> nums)
-    {
 
-        return num;
-    }
-    private async Task<List<ReturnedList>> SplitAgain(List<ReturnedList> numbers)
-    {
-
-    }
-
-    private async Task<List<int>> SplitMore(ReturnedList numbers)
-    {
-        //take in # of things to split
-        int length = numbers.less_than.Count() + numbers.greater_than.Count();
-        List<ReturnedList> split_numbers = new List<ReturnedList> { };
-        split_numbers[1] = numbers;
-        while (length / 2 >= split_numbers.Count())
+        public class ReturnedList
         {
-            for (int i = 0; i < split_numbers.Count(); i++)
-            {
-                SplitAgain(split_numbers));
+            public List<int> less_than = new List<int>();
+            public List<int> greater_than = new List<int>();
         }
-        await Task.WhenAll();
+
+        public class ReturnedObjects
+        {
+            public List<ReturnedList> less_than = new List<ReturnedList>();
+            public List<ReturnedList> greater_than = new List<ReturnedList>();
+        }
     }
-
-
-
-
-
-    //loop through and do the following until there are 2 lists with 1 item each 
-    //do this by splitting into x # of tasks with x # of tasks each. need a good peice of reusable code here. need to think about it...
-    //split the larger side and the smaller side at the same time 
-    //return 4 "returned lists" then 6 then so-on
-    var something = new List<object> { nums, nums };
-    await Task.WhenAll();
-        return something;
-    }
-
-private class ReturnedList
-{
-    public List<int> less_than = new List<int>();
-    public List<int> greater_than = new List<int>();
 }
-}
-
