@@ -1,21 +1,47 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 
 
 namespace sort
 {
-    class Program
+    public class Program
     {
-        //restarting
-        static void Main(string[] args)
+        public static void Main()
         {
-            list<int> origin_list = new list<int> { 4, 5, 10, 12, 14, 20, 1, 205, 26, 31, 120, 2, 3, 72, 40, 100, 140 }
-            StartSsplitting(origin_list);
-
+            int[] arr = new int[15] { 213, 3, 4, 11, 20, 189, 2, 98, 90, 16, 76, 92, 123, 164, 247 };
+            Sort(arr);
+            PrintResults(arr);
         }
 
-        public static string StartSsplitting(list<int> origin_list)
+        private static void Sort(int[] arr)
         {
+            int i, j, min;
+            for (i = 0; i < arr.Length; i++)
+            {
+                min = i;
+                for (j = 0; j < arr.Length; j++)
+                {
+                    if (arr[j] > arr[min])
+                    {
+                        min = j;
+                        Swap(ref arr[i], ref arr[min]);
+                    }
+                }
+            }
+        }
 
+        private static void Swap(ref int x, ref int y)
+        {
+            int temp = x;
+            x = y;
+            y = temp;
+        }
+        private static void PrintResults(int[] arr)
+        {
+            Console.WriteLine("Sorted Values:");
+            for (int i = 0; i < arr.Length; i++)
+                Console.WriteLine(arr[i]);
         }
     }
 }
