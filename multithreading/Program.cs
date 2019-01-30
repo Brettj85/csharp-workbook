@@ -46,33 +46,33 @@ public class Program
         //take in # of things to split
         int length = numbers.less_than.Count() + numbers.greater_than.Count();
         List<ReturnedList> split_numbers = new List<ReturnedList> { };
-        List<ReturnedList> multiplied_splits = new List<ReturnedList> { };
-        multiplied_splits[1] = numbers;
-        while (length >= split_numbers.Count())
+        split_numbers[1] = numbers;
+        while (length / 2 >= split_numbers.Count())
         {
-            for (int i = 0; i < multiplied_splits.Count(); i++)
+            for (int i = 0; i < split_numbers.Count(); i++)
             {
-
-            }
+                SplitAgain(split_numbers));
         }
-
-
-
-
-
-        //loop through and do the following until there are 2 lists with 1 item each 
-        //do this by splitting into x # of tasks with x # of tasks each. need a good peice of reusable code here. need to think about it...
-        //split the larger side and the smaller side at the same time 
-        //return 4 "returned lists" then 6 then so-on
-        var something = new List<object> { nums, nums };
         await Task.WhenAll();
+    }
+
+
+
+
+
+    //loop through and do the following until there are 2 lists with 1 item each 
+    //do this by splitting into x # of tasks with x # of tasks each. need a good peice of reusable code here. need to think about it...
+    //split the larger side and the smaller side at the same time 
+    //return 4 "returned lists" then 6 then so-on
+    var something = new List<object> { nums, nums };
+    await Task.WhenAll();
         return something;
     }
 
-    private class ReturnedList
-    {
-        public List<int> less_than = new List<int>();
-        public List<int> greater_than = new List<int>();
-    }
+private class ReturnedList
+{
+    public List<int> less_than = new List<int>();
+    public List<int> greater_than = new List<int>();
+}
 }
 
