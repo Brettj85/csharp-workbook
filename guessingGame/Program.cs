@@ -15,8 +15,7 @@ namespace guessingGame
             Console.WriteLine("cheat code?");
             guess_me.Cheat(Console.ReadLine());
             PlayGame start = new PlayGame(player, guess_me);
-            bool winner = start.guess_loop(start.number, player);
-
+            start.guess_loop(start.number, player);
 
             //take in 4 guesses and match against the number
             Console.WriteLine("{0}", guess_me.guess_this);
@@ -95,19 +94,19 @@ namespace guessingGame
     {
         private bool cheat = false;
         private int lives;
+        private bool winner;
         public PlayGame(PlayerStatistics player, RandomNumber guess_me)
         {
             PlayerStatistics player_data = player;
             number = guess_me.RequestNumber();
             lives = player.CheckLives();
             int num_to_guess = number;
-            guess_loop(num_to_guess, player_data);
         }
 
-        public bool guess_loop(int num_to_guess, PlayerStatistics player_data)
+        public void guess_loop(int num_to_guess, PlayerStatistics player_data)
         {
             bool number_guessed = false;
-            bool winner = false;
+            //bool winner = false;
             int guess_this = number;
             while (lives < 0 && !number_guessed)
             {
@@ -131,9 +130,6 @@ namespace guessingGame
                         Console.WriteLine("Cheat?");
                         player_data.Cheat(Convert.ToInt32(Console.ReadLine()));
                     }
-
-
-
                 }
                 catch (System.Exception)
                 {
@@ -141,7 +137,6 @@ namespace guessingGame
                     Console.ReadLine();
                 }
             }
-            return winner;
         }
 
         public object player_data { get; private set; }
