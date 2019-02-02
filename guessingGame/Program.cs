@@ -7,29 +7,42 @@ namespace guessingGame
         static void Main(string[] args)
         {
             RandomNumber guess_me = new RandomNumber();
-            guess_me.Cheat(3);
+            Console.WriteLine("cheat code?");
+            guess_me.Cheat(Console.ReadLine());
+
             //take in 4 guesses and match against the number
             Console.WriteLine("{0}", guess_me.guess_this);
         }
     }
     class RandomNumber
     {
+        private bool cheat = false;
         private Random rnd = new Random();
 
         public RandomNumber()
         {
             guess_this = rnd.Next(1, 10);
         }
-        public void Cheat(int selected_number)
+        public void Cheat(string selected_number)
         {
-            this.guess_this = selected_number;
+            try
+            {
+                this.guess_this = Convert.ToInt32(selected_number);
+                cheat = true;
+            }
+            catch (System.FormatException)
+            {
+                Console.WriteLine("incorrect CheatCode");
+                Console.WriteLine("A random # has been generated");
+                Console.ReadLine();
+            }
+
         }
         public int guess_this { get; private set; }
     }
 
     class PlayGame
     {
-
 
     }
 
