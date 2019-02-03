@@ -18,6 +18,7 @@ namespace guessingGame
         private string player_last;
         private int[] guessing_game = new int[] { 0, 0, 0, 0 };
         private int lives = 4;
+
         public PlayerStatistics(string first, string last)
         {
 
@@ -47,30 +48,4 @@ namespace guessingGame
             Console.WriteLine(top_bot);
         }
     }
-
-    //Game controller
-    class ProgramController
-    {
-        //run software until quit
-        private bool quit = false;
-
-        public ProgramController()
-        {
-            //run software until quit
-            while (quit)
-            {
-
-            }
-        }
-
-        //number guess game
-    }
-
-    //Cheat controller
-    class CheatController
-    {
-        private bool is_cheating = false;
-
-    }
-    //number guess game
 }
