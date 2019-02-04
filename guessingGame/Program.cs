@@ -14,6 +14,7 @@ namespace guessingGame
             {
                 if (first == "")
                 {
+
                     Console.Clear();
                     Console.Write("Enter first name: ");
                     first = Console.ReadLine();
