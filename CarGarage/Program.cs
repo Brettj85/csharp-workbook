@@ -25,7 +25,7 @@ public class Program
     }
     class Car
     {
-        private Person[] person;
+        public Person[] person;
         int spot;
 
         public Car(string initialColor, Person initialName, int initialSpot)
@@ -68,7 +68,7 @@ public class Program
                 {
                     if (cars[i] != null)
                     {
-                        Console.WriteLine(String.Format("The {0} car is in spot {1}. There are  ", cars[i].Color, i, Person[i].person));
+                        Console.WriteLine(String.Format("The {0} car is in spot {1}.", cars[i].Color, cars[i].person));
                     }
                 }
                 return "That's all!";
