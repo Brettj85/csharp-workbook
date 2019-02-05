@@ -2,7 +2,7 @@ using System;
 
 namespace starwars
 {
-    class Ship
+    public class Ship
     {
         private Person[] passengers;
         public Ship(string alliance, string type, int size)
@@ -39,5 +39,4 @@ namespace starwars
             this.passengers[seat] = null;
         }
     }
-}
 }

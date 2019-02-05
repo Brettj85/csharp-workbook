@@ -2,7 +2,7 @@ using System;
 
 namespace starwars
 {
-    class Person
+    public class Person
     {
         public string firstName;
         public string lastName;
