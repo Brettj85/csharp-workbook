@@ -4,13 +4,13 @@ namespace starwars
 {
     public class Station
     {
-        private Ship[] docked;
+        private Bay[] docked;
 
         public Station(string alliance, string name, int bays)
         {
             this.Name = name;
             this.Alliance = alliance;
-            this.docked = new Ship[bays];
+            this.docked = new Bay[bays];
         }
 
         public string Name { get; set; }
