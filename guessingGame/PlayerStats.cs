@@ -43,9 +43,9 @@ namespace guessingGame
             Console.WriteLine(top_bot);
             Console.WriteLine("*                                             *");//45
             Console.WriteLine(game_list[0]);
-            Console.WriteLine("*Played: {0}                                  *", "00" + guessing_game[0]);
-            Console.WriteLine("*Won: {0}                            Lost: {1}*", "00" + guessing_game[1], "00" + guessing_game[2]);
-            Console.WriteLine("*Cheated: {0}                                 *", "00" + guessing_game[3]);
+            Console.WriteLine("* Played: {0}                                 *", "00" + guessing_game[0]);
+            Console.WriteLine("* Won: {0}                          Lost: {1} *", "00" + guessing_game[1], "00" + guessing_game[2]);
+            Console.WriteLine("* Cheated: {0}                                *", "00" + guessing_game[3]);
             Console.WriteLine(top_bot);
             Console.WriteLine("Press enter to continue...");
             Console.ReadLine();
