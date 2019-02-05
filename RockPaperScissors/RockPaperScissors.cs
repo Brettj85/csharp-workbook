@@ -14,11 +14,27 @@ namespace RockPaperScissors
             {
                 while (playAgain == true)
                 {
+                    string hand1 = null;
+                    string hand2 = "";
                     Console.Clear();
                     Console.WriteLine("Enter hand 1:");
-                    string hand1 = Console.ReadLine().ToLower();
+                    try
+                    {
+                        hand1 = Console.ReadLine().ToLower();
+                    }
+                    catch (System.Exception)
+                    {
+                        Console.WriteLine("invalid selection");
+                    }
                     Console.WriteLine("Enter hand 2 or c for a computer player");
-                    string hand2 = Console.ReadLine().ToLower();
+                    try
+                    {
+                        hand2 = Console.ReadLine().ToLower();
+                    }
+                    catch (System.Exception)
+                    {
+                        Console.WriteLine("invalid selection");
+                    }
                     string showWinner = (CompareHands(hand1, hand2));
                     string[] splitResults = showWinner.Split('*');
                     string winnerText = splitResults[0];

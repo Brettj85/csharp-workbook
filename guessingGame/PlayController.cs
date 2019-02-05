@@ -84,7 +84,7 @@ namespace guessingGame
     class CheatController
     {
         private bool not_random = false;
-        private bool inf_lives = false;
+        public bool inf_lives { get; private set; } = false;
         private bool added_cheat = false;
         public void AddCheat(string password)
         {

@@ -96,12 +96,16 @@ namespace guessingGame
                 }
                 bool guess_correct = CheckWin(user_guess);
                 bool[] is_cheating = active_cheats.RetriveCheats();
+                // better way to do this is get/private set for 
+                // expandability or use public var to get the private values. 
+                // More than a couple of these in the array would get confusing.
                 if (guess_correct)
                 {
                     win = true;
                     for (int i = 0; i < 5; i++)
                     {
                         Console.Clear();
+
                         if (is_cheating[0] || is_cheating[1])
                         {
                             Thread.Sleep(250);
@@ -149,7 +153,3 @@ namespace guessingGame
         }
     }
 }
-
-/*Write a program that picks a random number between 1 and 10. Give the user 4 chances to guess the number. 
-  If the user guesses the number, display “You won"; otherwise, display “You lost". (To make sure the program 
-  is behaving correctly, you can display the secret number on the console first.)*/
