@@ -75,7 +75,7 @@ namespace guessingGame
             Console.WriteLine("*                Guessing Game                *");
             Console.WriteLine("***********************************************");
             int user_guess = 0;
-            bool win = false;
+            bool game_complete = false;
             bool loss = false;
             int[] results = new int[4] { 0, 0, 0, 0 };
             if (lives < 0 || pick_num_cheat)
@@ -83,7 +83,7 @@ namespace guessingGame
                 results[3]++;
             }
 
-            while ((lives > 0 || lives < 0) && !win)
+            while (lives != 0 && !game_complete)
             {
                 Console.WriteLine("enter guess");
                 try
@@ -101,12 +101,12 @@ namespace guessingGame
                 // More than a couple of these in the array would get confusing.
                 if (guess_correct)
                 {
-                    win = true;
+                    game_complete = true;
                     for (int i = 0; i < 5; i++)
                     {
                         Console.Clear();
 
-                        if (is_cheating[0] || is_cheating[1])
+                        if (active_cheats.added_cheat)
                         {
                             Thread.Sleep(250);
                             Console.WriteLine("You have WON!!!   ;)");

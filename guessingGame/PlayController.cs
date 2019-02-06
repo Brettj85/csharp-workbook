@@ -22,27 +22,19 @@ namespace guessingGame
             //run software until quit
             while (!quit)
             {
-                Console.Clear();
-                // build menu
-                Console.WriteLine("***********************************************");
-                Console.WriteLine("*      Play Guessing Game : press g           *");
-                Console.WriteLine("*              Cheat: press c                 *");
-                Console.WriteLine("*              Exit: press x                  *");
-                Console.WriteLine("*          Current Stats: press s             *");
-                Console.WriteLine("***********************************************");
-                string choice = "void";
-                while (choice == "void")
+                string choice;
+                do
                 {
-                    try
-                    {
-                        choice = Console.ReadLine();
+                    Console.Clear();
 
-                    }
-                    catch (System.Exception)
-                    {
-                        Console.WriteLine("Invalid Selection. Please try again.");
-                    }
-                }
+                    Console.WriteLine("***********************************************");
+                    Console.WriteLine("*      Play Guessing Game : press g           *");
+                    Console.WriteLine("*              Cheat: press c                 *");
+                    Console.WriteLine("*              Exit: press x                  *");
+                    Console.WriteLine("*          Current Stats: press s             *");
+                    Console.WriteLine("***********************************************");
+                    choice = Console.ReadLine();
+                } while (choice != "g" && choice != "c" && choice != "x" && choice != "s");
 
                 if (choice == "g")
                 {
@@ -58,15 +50,12 @@ namespace guessingGame
                 }
                 else if (choice == "c")
                 {
+                    Console.Clear();
+                    Console.WriteLine("***********************************************");
+                    Console.WriteLine("*                   Cheats                    *");
+                    Console.WriteLine("***********************************************");
                     Console.WriteLine("Enter Cheat Code");
-                    try
-                    {
-                        cheats.AddCheat(Console.ReadLine());
-                    }
-                    catch (System.Exception)
-                    {
-                        Console.WriteLine("Invalid Entry!");
-                    }
+                    cheats.AddCheat(Console.ReadLine());
                 }
                 else if (choice == "s")
                 {
@@ -79,36 +68,4 @@ namespace guessingGame
             }
         }
     }
-
-    //Cheat controller
-    class CheatController
-    {
-        private bool not_random = false;
-        public bool inf_lives { get; private set; } = false;
-        private bool added_cheat = false;
-        public void AddCheat(string password)
-        {
-            if (password == "ch0053#" && !not_random)
-            {
-                this.not_random = true;
-                this.added_cheat = true;
-            }
-            if (password == "und131ng" && !inf_lives)
-            {
-                this.inf_lives = true;
-                this.added_cheat = true;
-            }
-            if (!this.added_cheat)
-            {
-                Console.WriteLine("Invalid Cheat Code or that cheat is already enabled!");
-            }
-        }
-        public bool[] RetriveCheats()
-        {
-            bool[] cheats = new bool[] { this.not_random, this.inf_lives };
-            return cheats;
-        }
-
-    }
-    //number guess game
 }
