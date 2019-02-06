@@ -8,8 +8,8 @@ namespace TicTacToe
         public static void Main()
         {
             string[][,] returnedResults = new string[1][,];
-
-            Menu.mainMenu(returnedResults);
+            string how_many = "5";
+            Menu.mainMenu(returnedResults, how_many);
         }
     }
 }
