@@ -30,6 +30,15 @@ namespace gameboy
                 }
             }
         }
+        public void ShowData(List<string> items, string menuTitle)
+        {
+            title = menuTitle;
+            string done = drawData(items);
+            if (done == "Exit")
+            {
+                Console.Clear();
+            }
+        }
         private string drawMenu(List<string> items)
         {
             string buildTitle = ReturnLine(title);
@@ -37,6 +46,7 @@ namespace gameboy
             Console.WriteLine(buildBorder);
             Console.WriteLine(buildTitle);
             Console.WriteLine(buildBorder);
+
             for (int i = 0; i < items.Count; i++)
             {
                 Console.CursorVisible = false;
@@ -57,6 +67,49 @@ namespace gameboy
             Console.WriteLine(buildBorder);
             string userInput = MenuController(items);
             return userInput;
+        }
+        private string drawExit(List<string> items)
+        {
+            string buildBorder = ReturnLine("*");
+            for (int i = 0; i < items.Count; i++)
+            {
+                Console.CursorVisible = false;
+                if (i == index)
+                {
+                    Console.BackgroundColor = ConsoleColor.Gray;
+                    Console.ForegroundColor = ConsoleColor.Black;
+                    string buildLine = ReturnLine(items[i]);
+                    Console.WriteLine(buildLine);
+                }
+                else
+                {
+                    string buildLine = ReturnLine(items[i]);
+                    Console.WriteLine(buildLine);
+                }
+                Console.ResetColor();
+            }
+            Console.WriteLine(buildBorder);
+            string userInput = MenuController(items);
+            return userInput;
+        }
+        private string drawData(List<string> items)
+        {
+            string buildTitle = ReturnLine(title);
+            string buildBorder = ReturnLine("*");
+            Console.WriteLine(buildBorder);
+            Console.WriteLine(buildTitle);
+            Console.WriteLine(buildBorder);
+
+            for (int i = 0; i < items.Count; i++)
+            {
+                Console.WriteLine(ReturnLine(items[i]));
+            }
+            Console.WriteLine(buildBorder);
+
+            List<string> exit = new List<string>() { "Exit" };
+            string userInput = drawExit(exit);
+            return userInput;
+
         }
         private string MenuController(List<string> items)
         {

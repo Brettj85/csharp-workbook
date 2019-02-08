@@ -36,7 +36,7 @@ namespace gameboy
             }
             if (request == "Cheats")
             {
-                this.cheats = cheats.CheatMenu(cheats);
+                cheats.CheatMenu();
             }
             if (request == "Profile")
             {
