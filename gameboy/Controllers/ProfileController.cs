@@ -9,6 +9,7 @@ namespace gameboy
         public bool active { get; private set; } = false;
         private string firstName = "";
         private string lastName = "";
+        private List<string> profileOptions = new List<string>() { "Game Stats", "Change Name", "Exit" };
 
         public void Create()
         {
@@ -26,8 +27,12 @@ namespace gameboy
                 }
                 Console.Clear();
             } while (firstName == "" || lastName == "");
-            active = true;
-
+            this.active = true;
+        }
+        private Display display = new Display();
+        public void ProfileMenu()
+        {
+            string userRequest = display.getInput(profileOptions);
         }
     }
 }

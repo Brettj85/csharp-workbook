@@ -16,11 +16,7 @@ namespace gameboy
                 string selectedMenuItem = drawMenu(items);
                 foreach (var item in items)
                 {
-                    if (selectedMenuItem == "Exit")
-                    {
-                        break;
-                    }
-                    else if (selectedMenuItem == item)
+                    if (selectedMenuItem == item)
                     {
                         Console.Clear();
                         return item;
@@ -50,8 +46,6 @@ namespace gameboy
             Console.WriteLine("*************************");
             string userInput = MenuController(items);
             return userInput;
-
-
         }
         private static string MenuController(List<string> items)
         {
