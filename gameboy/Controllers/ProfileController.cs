@@ -1,6 +1,6 @@
 using System;
 using System.Collections.Generic;
-using System.Threading;
+
 
 namespace gameboy
 {
@@ -10,6 +10,7 @@ namespace gameboy
         private string firstName = "";
         private string lastName = "";
         private List<string> profileOptions = new List<string>() { "Game Stats", "Change Name", "Exit" };
+        private string menuType = "PROFILE";
 
         public void Create()
         {
@@ -29,10 +30,15 @@ namespace gameboy
             } while (firstName == "" || lastName == "");
             this.active = true;
         }
-        private Display display = new Display();
+        private Display display;
         public void ProfileMenu()
         {
-            string userRequest = display.getInput(profileOptions);
+            string userRequest = "";
+            while (userRequest != "Exit")
+            {
+                display = new Display();
+                userRequest = display.getInput(profileOptions, menuType);
+            }
         }
     }
 }

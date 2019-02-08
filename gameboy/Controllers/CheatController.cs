@@ -1,6 +1,6 @@
 using System;
 using System.Collections.Generic;
-using System.Threading;
+
 
 namespace gameboy
 {
@@ -8,11 +8,17 @@ namespace gameboy
     {
         public bool active { get; private set; } = false;
         private List<string> cheats = new List<string>() { "Enter Cheat", "View Active", "Disable Cheats", "Disable All Cheats", "Exit" };
-        Display display = new Display();
+        private string menuType = "CHEATS";
+        private Display display;
         public CheatController CheatMenu(CheatController cheat)
         {
             CheatController current = cheat;
-            string userRequest = display.getInput(cheats);
+            string userRequest = "";
+            while (userRequest != "Exit")
+            {
+                display = new Display();
+                userRequest = display.getInput(cheats, menuType);
+            }
             return current;
         }
 

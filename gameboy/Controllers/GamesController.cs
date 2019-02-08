@@ -1,17 +1,24 @@
 using System;
 using System.Collections.Generic;
-using System.Threading;
+
 
 namespace gameboy
 {
     class GamesController
     {
         private List<string> games = new List<string>() { "Towers Of Hanoi", "Mastermind", "Rock Paper Scissor", "Tic Tac Toe", "Exit" };
-        Display display = new Display();
+        private string menuType = "GAMES";
+        private Display display;
         public ProfileController SelectGame(ProfileController profile, CheatController cheat)
         {
             ProfileController user = profile;
-            string userRequest = display.getInput(games);
+            CheatController activeCheats = cheat;
+            string userRequest = "";
+            while (userRequest != "Exit")
+            {
+                display = new Display();
+                userRequest = display.getInput(games, menuType);
+            }
             return user;
         }
     }

@@ -7,10 +7,16 @@ namespace gameboy
     class Display
     {
         private static int index = 0;
+        private string title;
 
-        public string getInput(List<string> items)
+        public Display()
         {
-            Console.CursorVisible = false;
+            index = 0;
+        }
+        public string getInput(List<string> items, string menuTitle)
+        {
+            title = menuTitle;
+
             while (true)
             {
                 string selectedMenuItem = drawMenu(items);
@@ -24,11 +30,15 @@ namespace gameboy
                 }
             }
         }
-        private static string drawMenu(List<string> items)
+        private string drawMenu(List<string> items)
         {
+            string buildTitle = ReturnLine(title);
+            Console.WriteLine("*************************");
+            Console.WriteLine(buildTitle);
             Console.WriteLine("*************************");
             for (int i = 0; i < items.Count; i++)
             {
+                Console.CursorVisible = false;
                 if (i == index)
                 {
                     Console.BackgroundColor = ConsoleColor.Gray;
@@ -47,7 +57,7 @@ namespace gameboy
             string userInput = MenuController(items);
             return userInput;
         }
-        private static string MenuController(List<string> items)
+        private string MenuController(List<string> items)
         {
             ConsoleKeyInfo userInput = Console.ReadKey();
 
@@ -79,7 +89,7 @@ namespace gameboy
             Console.Clear();
             return "";
         }
-        private static string ReturnLine(string formatMe)
+        private string ReturnLine(string formatMe)
         {
             StringBuilder buildLine = new StringBuilder();
             int spaces = (((25 - formatMe.Length) / 2) - 1);
