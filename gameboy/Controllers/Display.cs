@@ -33,9 +33,10 @@ namespace gameboy
         private string drawMenu(List<string> items)
         {
             string buildTitle = ReturnLine(title);
-            Console.WriteLine("*************************");
+            string buildBorder = ReturnLine("*");
+            Console.WriteLine(buildBorder);
             Console.WriteLine(buildTitle);
-            Console.WriteLine("*************************");
+            Console.WriteLine(buildBorder);
             for (int i = 0; i < items.Count; i++)
             {
                 Console.CursorVisible = false;
@@ -53,7 +54,7 @@ namespace gameboy
                 }
                 Console.ResetColor();
             }
-            Console.WriteLine("*************************");
+            Console.WriteLine(buildBorder);
             string userInput = MenuController(items);
             return userInput;
         }
@@ -91,23 +92,32 @@ namespace gameboy
         }
         private string ReturnLine(string formatMe)
         {
-            StringBuilder buildLine = new StringBuilder();
-            int spaces = (((25 - formatMe.Length) / 2) - 1);
-            char[] chars = new char[2] { '*', ' ' };
-            buildLine.Append(chars[0]).Append(chars[1], spaces).Append(formatMe).Append(chars[1], spaces);
-            while (buildLine.Length < 25)
+            char[] chars = new char[3] { '|', ' ', '~' };
+            if (formatMe == "*")
             {
-                if (buildLine.Length == 24)
-                {
-                    buildLine.Append(chars[0]);
-
-                }
-                else if (buildLine.Length < 24)
-                {
-                    buildLine.Append(chars[1]);
-                }
+                StringBuilder buildBorder = new StringBuilder();
+                buildBorder.Append(chars[2], 25);
+                return buildBorder.ToString();
             }
-            return buildLine.ToString();
+            else
+            {
+                StringBuilder buildLine = new StringBuilder();
+                int spaces = (((25 - formatMe.Length) / 2) - 1);
+                buildLine.Append(chars[0]).Append(chars[1], spaces).Append(formatMe).Append(chars[1], spaces);
+                while (buildLine.Length < 25)
+                {
+                    if (buildLine.Length == 24)
+                    {
+                        buildLine.Append(chars[0]);
+
+                    }
+                    else if (buildLine.Length < 24)
+                    {
+                        buildLine.Append(chars[1]);
+                    }
+                }
+                return buildLine.ToString();
+            }
         }
     }
 }

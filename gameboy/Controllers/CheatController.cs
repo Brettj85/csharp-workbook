@@ -21,6 +21,5 @@ namespace gameboy
             }
             return current;
         }
-
     }
 }
