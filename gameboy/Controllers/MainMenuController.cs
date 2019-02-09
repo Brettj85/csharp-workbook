@@ -16,11 +16,14 @@ namespace gameboy
         {
 
             string userRequest = "";
-            do
+            if (!profile.active)
             {
-                profile.Create();
+                do
+                {
+                    profile.Create();
 
-            } while (!profile.active);
+                } while (!profile.active);
+            }
             do
             {
                 display = new Display();

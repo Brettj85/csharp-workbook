@@ -42,7 +42,7 @@ namespace gameboy
         private string drawMenu(List<string> items)
         {
             string buildTitle = ReturnLine(title);
-            string buildBorder = ReturnLine("*");
+            string buildBorder = ReturnLine("~");
             Console.WriteLine(buildBorder);
             Console.WriteLine(buildTitle);
             Console.WriteLine(buildBorder);
@@ -70,7 +70,7 @@ namespace gameboy
         }
         private string drawExit(List<string> items)
         {
-            string buildBorder = ReturnLine("*");
+            string buildBottem = ReturnLine("~");
             for (int i = 0; i < items.Count; i++)
             {
                 Console.CursorVisible = false;
@@ -88,23 +88,30 @@ namespace gameboy
                 }
                 Console.ResetColor();
             }
-            Console.WriteLine(buildBorder);
+            Console.WriteLine(buildBottem);
             string userInput = MenuController(items);
             return userInput;
         }
         private string drawData(List<string> items)
         {
             string buildTitle = ReturnLine(title);
-            string buildBorder = ReturnLine("*");
+            string buildBorder = ReturnLine("~");
+            string buildBottom = ReturnLine("*");
+            string buildBlank = ReturnLine("| ");
             Console.WriteLine(buildBorder);
             Console.WriteLine(buildTitle);
-            Console.WriteLine(buildBorder);
+            Console.WriteLine(buildBottom);
+            Console.WriteLine(buildBlank);
+
 
             for (int i = 0; i < items.Count; i++)
             {
-                Console.WriteLine(ReturnLine(items[i]));
+                Console.WriteLine(ReturnLine("|" + items[i]));
             }
-            Console.WriteLine(buildBorder);
+
+            Console.WriteLine(buildBlank);
+            Console.WriteLine(buildBottom);
+
 
             List<string> exit = new List<string>() { "Exit" };
             string userInput = drawExit(exit);
@@ -145,12 +152,38 @@ namespace gameboy
         }
         private string ReturnLine(string formatMe)
         {
-            char[] chars = new char[3] { '|', ' ', '~' };
-            if (formatMe == "*")
+            char[] chars = new char[4] { '*', ' ', '~', '|' };
+            if (formatMe == "~")
             {
                 StringBuilder buildBorder = new StringBuilder();
                 buildBorder.Append(chars[2], 25);
                 return buildBorder.ToString();
+            }
+            else if (formatMe == "*")
+            {
+                StringBuilder buildBorder = new StringBuilder();
+                buildBorder.Append(chars[0], 25);
+                return buildBorder.ToString();
+            }
+            else if (formatMe.Substring(0, 1) == "|")
+            {
+                formatMe = formatMe.Substring(1);
+                StringBuilder buildLine = new StringBuilder();
+                int spaces = (((25 - formatMe.Length) / 2) - 1);
+                buildLine.Append(chars[3]).Append(chars[1], spaces).Append(formatMe).Append(chars[1], spaces);
+                while (buildLine.Length < 25)
+                {
+                    if (buildLine.Length == 24)
+                    {
+                        buildLine.Append(chars[3]);
+
+                    }
+                    else if (buildLine.Length < 24)
+                    {
+                        buildLine.Append(chars[1]);
+                    }
+                }
+                return buildLine.ToString();
             }
             else
             {

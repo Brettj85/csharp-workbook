@@ -12,8 +12,8 @@ namespace gameboy
         private string menuType = "CHEATS";
         private Display display;
         public List<string> ActiveCheats { get; private set; } = new List<string>();
-        private List<string> InactiveCheats = new List<string>() { "Immortality" };
-        private List<string> CheatCodes = new List<string>() { "l1v3s" };
+        private List<string> InactiveCheats = new List<string>() { "Immortality", "Unlimited Money", "Unlocked R.P.C", "Unlocked T.T.T" };
+        private List<string> CheatCodes = new List<string>() { "l1v3s", "MrBurns", "rps", "ttt" };
         public void CheatMenu()
         {
             Console.Clear();
@@ -82,6 +82,7 @@ namespace gameboy
                 if (input == item)
                 {
                     validate = input;
+                    break;
                 }
             }
             return validate;
@@ -93,16 +94,23 @@ namespace gameboy
             {
                 if (code == CheatCodes[i])
                 {
-                    if (ActiveCheats.Count != 0)
+                    if (ActiveCheats.Count > 0)
                     {
                         foreach (var item in ActiveCheats)
                         {
-                            if (InactiveCheats[i] != item)
+                            if (item == InactiveCheats[i])
+                            {
+                                break;
+                            }
+                            else
                             {
                                 result = code;
                                 ActiveCheats.Add(InactiveCheats[i]);
+                                break;
                             }
+
                         }
+
                     }
                     else
                     {
@@ -111,6 +119,7 @@ namespace gameboy
                     }
                 }
             }
+
             return result;
         }
         private void ViewActiveCheats()
@@ -123,6 +132,7 @@ namespace gameboy
         private void DisableCheat()
         {
             List<string> active = ActiveCheats;
+            active.Add("Cancel");
             active.Add("Remove All");
             Display deactivateCheats = new Display();
             string userRequest = deactivateCheats.getInput(active, "DISABLE CHEATS");
@@ -130,11 +140,18 @@ namespace gameboy
             {
                 ActiveCheats.RemoveRange(0, ActiveCheats.Count);
                 active.Remove("Remove All");
+                active.Remove("Cancel");
+            }
+            else if (userRequest == "Cancel")
+            {
+                active.Remove("Cancel");
+                active.Remove("Remove All");
             }
             else
             {
                 ActiveCheats.Remove(userRequest);
                 active.Remove("Remove All");
+                active.Remove("Cancel");
             }
         }
     }

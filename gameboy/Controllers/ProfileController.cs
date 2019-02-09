@@ -6,7 +6,7 @@ namespace gameboy
 {
     class ProfileController
     {
-        public bool active { get; private set; } = false;
+        public bool active { get; private set; } = true;//bypass profile with true
         private string firstName = "";
         private string lastName = "";
         private List<string> profileOptions = new List<string>() { "Game Stats", "Change Name", "Exit" };
