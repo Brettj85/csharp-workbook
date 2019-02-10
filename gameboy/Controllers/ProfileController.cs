@@ -11,7 +11,7 @@ namespace gameboy
         private string lastName = "";
         private List<string> profileOptions = new List<string>() { "Game Stats", "Change Name", "Exit" };
         private string menuType = "PROFILE";
-        private List<string> game = new List<string> { "Towers Of Hanoi", "Mastermind", "Tic Tac Toe", "Rock Paper Scissor" };
+        private List<string> game = new List<string> { "Towers Of Hanoi", "Mastermind" };
         private List<List<string>> labels = new List<List<string>>();
         private List<List<int>> scores = new List<List<int>>();
 
@@ -19,7 +19,7 @@ namespace gameboy
         {
             for (int i = 0; i < game.Count; i++)
             {
-                List<string> label = new List<string> { "Games Played", "wins", "Losses", "Times Cheated", "Best Score", "Worst Score" };
+                List<string> label = new List<string> { "Games Played", "wins", "Loss", "Times Cheated", "Best Score", "Worst Score" };
                 List<int> startScores = new List<int> { 0, 0, 0, 0, 0, 0 };
                 labels.Add(label);
                 scores.Add(startScores);

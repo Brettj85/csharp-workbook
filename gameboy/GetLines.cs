@@ -124,36 +124,37 @@ namespace gameboy
             } while (true);
             do
             {
-                if (lessThan11.Count > 3)
+                if (lessThan11.Count >= 3)
                 {
                     StringBuilder nextLine = new StringBuilder();
                     string first = lessThan11[0];
                     string second = lessThan11[1];
-                    string third = lessThan11[1];
+                    string third = lessThan11[2];
                     lessThan11.RemoveRange(0, 3);
-                    int space = ((36 - (first.Length + second.Length + third.Length)) / 3);
-                    nextLine.Append(chars[0]).Append(chars[3]).Append(first).Append(chars[3], space).Append(second).Append(chars[3]).Append(chars[0]);
+                    int space = ((36 - (first.Length + second.Length + third.Length)) / 2);
+                    nextLine.Append(chars[0]).Append(chars[3]).Append(first).Append(chars[3], space).Append(second).Append(chars[3]).Append(chars[3], space).Append(third).Append(chars[3]).Append(chars[0]);
                     Console.WriteLine(nextLine.ToString());
                 }
                 else if (lessThan11.Count > 0)
                 {
-                    if (lessThan11.Count > 1)
+                    if (lessThan11.Count > 1 && lessThan11.Count > 3)
                     {
                         StringBuilder nextLine = new StringBuilder();
                         string first = lessThan11[0];
                         string second = lessThan11[1];
-                        lessThan17.RemoveRange(0, 2);
-                        int space = ((36 - (first.Length + second.Length)) / 2);
+                        lessThan11.RemoveRange(0, 2);
+                        int space = ((36 - (first.Length + second.Length)));
                         nextLine.Append(chars[0]).Append(chars[3]).Append(first).Append(chars[3], space).Append(second).Append(chars[3]).Append(chars[0]);
                         Console.WriteLine(nextLine.ToString());
                     }
-                    else
+                    else if (lessThan11.Count > 0)
                     {
 
                         StringBuilder nextLine = new StringBuilder();
-                        int space = ((36 - lessThan11[0].Length) / 2);
+                        int space = ((36 - lessThan11[0].Length));
                         nextLine.Append(chars[0]).Append(chars[3]).Append(lessThan11[0]).Append(chars[3], space).Append(chars[3]).Append(chars[0]);
                         lessThan11.RemoveRange(0, 1);
+                        Console.WriteLine(nextLine.ToString());
                     }
                 }
                 else
