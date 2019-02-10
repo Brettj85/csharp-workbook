@@ -132,25 +132,29 @@ namespace gameboy
         private void DisableCheat()
         {
             List<string> active = ActiveCheats;
+            active.Add("!! Remove All !!");
             active.Add("Cancel");
-            active.Add("Remove All");
             Display deactivateCheats = new Display();
             string userRequest = deactivateCheats.getInput(active, "DISABLE CHEATS");
-            if (userRequest == "Remove All")
+            if (userRequest == "!! Remove All !!")
             {
-                ActiveCheats.RemoveRange(0, ActiveCheats.Count);
-                active.Remove("Remove All");
-                active.Remove("Cancel");
+                //build 2 choice menu left /right
+                if (userRequest == "!! Remove All !!")
+                {
+                    ActiveCheats.RemoveRange(0, ActiveCheats.Count);
+                    active.Remove("!! Remove All !!");
+                    active.Remove("Cancel");
+                }
             }
             else if (userRequest == "Cancel")
             {
                 active.Remove("Cancel");
-                active.Remove("Remove All");
+                active.Remove("!! Remove All !!");
             }
             else
             {
                 ActiveCheats.Remove(userRequest);
-                active.Remove("Remove All");
+                active.Remove("!! Remove All !!");
                 active.Remove("Cancel");
             }
         }

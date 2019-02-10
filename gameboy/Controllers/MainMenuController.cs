@@ -20,13 +20,13 @@ namespace gameboy
             {
                 do
                 {
-                    profile.Create();
+                    this.profile.Create();
 
                 } while (!profile.active);
             }
             do
             {
-                display = new Display();
+                this.display = new Display();
                 userRequest = display.getInput(menuItems, menuType);
                 StartSelection(userRequest);
             } while (userRequest != "Exit");
