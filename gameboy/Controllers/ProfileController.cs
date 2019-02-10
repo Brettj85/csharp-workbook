@@ -19,7 +19,7 @@ namespace gameboy
         {
             for (int i = 0; i < game.Count; i++)
             {
-                List<string> label = new List<string> { "Games Played", "wins", "Losses", "Times Cheated", "Best Score" };
+                List<string> label = new List<string> { "Games Played", "wins", "Losses", "Times Cheated", "Best Score", "Worst Score" };
                 List<int> startScores = new List<int> { 0, 0, 0, 0, 0 };
                 labels.Add(label);
                 scores.Add(startScores);
