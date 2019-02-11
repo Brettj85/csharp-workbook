@@ -10,12 +10,11 @@ namespace starwars
             Person darth = new Person("Darth", "Vader", "Imperial");
             Ship falcon = new Ship("Rebel", "Smuggling", 2);
             Ship tie = new Ship("Tie", "Fighter", 1);
-            Console.WriteLine("Hello world!");
+            falcon.EnterShip(leia, 1);
+            tie.EnterShip(darth, 1);
+            Station deathStar = new Station(3, "empire", "Death Star");
+
         }
     }
-
-
-
-
 }
 
