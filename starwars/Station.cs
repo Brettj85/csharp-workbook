@@ -33,24 +33,47 @@ namespace starwars
 
         public void Roster()
         {
+            Console.ForegroundColor = ConsoleColor.Black;
+            Console.BackgroundColor = ConsoleColor.White;
+            Console.WriteLine("Ships Docked in {0}", name);
+            Console.ForegroundColor = ConsoleColor.White;
+            Console.BackgroundColor = ConsoleColor.Black;
             foreach (var item in bays)
             {
-                Console.WriteLine("Ship: " + item);
-                StringBuilder aboard = new StringBuilder();
-                Console.Write("Passangers: " + item);
-                foreach (var person in item.passengers)
+                try
                 {
-                    if (person == item.passengers[item.passengers.Length - 1])
+                    if (item != null)
                     {
-                        Console.Write(person);
+                        Console.WriteLine();
+                        Console.WriteLine();
                     }
-                    else
+                    Console.WriteLine("Ship: " + item.Name);
+                    Console.WriteLine("Type: " + item.Type);
+                    Console.WriteLine("Allegiance: " + item.Allegiance);
+                    Console.Write("Passangers: ");
+                    int j = 0;
+                    foreach (var person in item.passengers)
                     {
-                        Console.Write(person + ", ");
+                        if (j != 0 && person != null)
+                        {
+                            Console.Write(", ");
+                            Console.Write(person.FullName);
+                        }
+                        else if (person != null)
+                        {
+                            Console.Write(person.FullName);
+                            j++;
+                        }
+
                     }
                 }
+                catch (System.NullReferenceException)
+                {
 
+
+                }
             }
+            Console.WriteLine();
         }
     }
 }
