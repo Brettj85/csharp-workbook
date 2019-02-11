@@ -15,28 +15,22 @@ namespace Garage
 
         public int Size { get; private set; }
 
-        public void ParkCar(Car car, int spot)
-        {
-            cars[spot] = car;
-        }
+        public void ParkCar(Car car, int spot) => cars[spot] = car;
 
-        public string Cars
+        public string GetCars()
         {
-            get
+            StringBuilder returnValue = new StringBuilder(); ;
+            for (int i = 0; i < cars.Length; i++)
             {
-                StringBuilder returnValue = new StringBuilder(); ;
-                for (int i = 0; i < cars.Length; i++)
+                if (cars[i] != null)
                 {
-                    if (cars[i] != null)
-                    {
-                        string carSpot = String.Format("The {0} car is in spot {1}. ", cars[i].Color, i);
-                        returnValue.Append(carSpot);
-                        returnValue.Append(cars[i].getPeople());
-                        returnValue.Append(Environment.NewLine);
-                    }
+                    string carSpot = String.Format("The {0} car is in spot {1}. ", cars[i].Color, i);
+                    returnValue.Append(carSpot);
+                    returnValue.Append(cars[i].GetPeople());
+                    returnValue.Append(Environment.NewLine);
                 }
-                return returnValue.ToString();
             }
+            return returnValue.ToString();
         }
     }
 }

@@ -33,7 +33,8 @@ namespace Garage
                 this.people[spot] = addMe;
             }
         }
-        public string getPeople()
+
+        public string GetPeople()
         {
             List<string> inCar = new List<string>();
             StringBuilder persons = new StringBuilder();
@@ -76,6 +77,7 @@ namespace Garage
             }
             return persons.ToString();
         }
+
         public string Color { get; private set; }
     }
 

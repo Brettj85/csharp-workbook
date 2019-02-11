@@ -19,7 +19,7 @@ namespace Garage
 
             smallGarage.ParkCar(blueCar, 0);
             smallGarage.ParkCar(ferarri, 1);
-            Console.WriteLine(smallGarage.Cars);
+            Console.WriteLine(smallGarage.GetCars());
             Console.ReadLine();
         }
     }
