@@ -16,28 +16,18 @@ namespace starwars
 
         public string Alliance { get; set; }
 
-
-        public string Passengers
+        public string GetPassengers()
         {
-            get
+            foreach (var person in passengers)
             {
-                foreach (var person in passengers)
-                {
-                    Console.WriteLine(String.Format("{0}", person.FullName));
-                }
-
-                return "That's Everybody!";
+                Console.WriteLine(String.Format("{0}", person.FullName));
             }
+
+            return "That's Everybody!";
         }
 
-        public void EnterShip(Person person, int seat)
-        {
-            this.passengers[seat] = person;
-        }
+        public void EnterShip(Person person, int seat) => this.passengers[seat] = person;
 
-        public void ExitShip(int seat)
-        {
-            this.passengers[seat] = null;
-        }
+        public void ExitShip(int seat) => this.passengers[seat] = null;
     }
 }
