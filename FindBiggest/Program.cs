@@ -17,22 +17,20 @@ namespace FindBiggest
                 {
                     current_number = Console.ReadLine();
                     int number = Convert.ToInt32(current_number);
-                    if (current_number == "e")
-                    {
-                        exit = true;
-                    }
-                    else if (number > highest_number)
+                    if (number > highest_number)
                     {
                         highest_number = number;
                     }
                 }
                 catch (System.Exception)
                 {
-                    Console.WriteLine("Invalid Selection. Please try again.");
+
+                    exit = true;
+
                 }
             }
 
-            Console.WriteLine("Your Highest Number is {0}");
+            Console.WriteLine("Your Highest Number is {0}", highest_number);
         }
     }
 }
