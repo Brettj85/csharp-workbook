@@ -6,7 +6,7 @@ namespace Rainforest
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Hello World!");
+
         }
     }
 }
