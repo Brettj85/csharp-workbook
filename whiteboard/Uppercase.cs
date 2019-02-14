@@ -3,9 +3,9 @@ using System.Text;
 
 namespace whiteboard
 {
-    class Uppercase : StringTransform
+    class Uppercase : Transform
     {
-        public override string reverseWord(string input)
+        public override string StringTransform(string input)
         {
             if (input == null)
             {

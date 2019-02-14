@@ -3,9 +3,9 @@ using System.Text;
 
 namespace whiteboard
 {
-    class StringTransform
+    class Transform
     {
-        public virtual string reverseWord(string input)
+        public virtual string StringTransform(string input)
         {
             if (input == null)
             {

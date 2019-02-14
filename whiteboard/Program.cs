@@ -6,24 +6,24 @@ namespace whiteboard
     {
         static void Main(string[] args)
         {
-            StringTransform Reverse = new StringTransform();
+            Transform Reverse = new Transform();
             Uppercase makeUpper = new Uppercase();
             LowerCase makeLower = new LowerCase();
             Console.WriteLine("Enter a word.");
             string request = Console.ReadLine();
-            string newWord = Reverse.reverseWord(request);
+            string newWord = Reverse.StringTransform(request);
             Console.WriteLine("your word backwards is: {0}", newWord);
-            newWord = makeUpper.reverseWord(request);
-            Console.WriteLine("your word backwards is: {0}", newWord);
+            newWord = makeUpper.StringTransform(request);
+            Console.WriteLine("your word uppercase is: {0}", newWord);
 
-            StringTransform[] arrTransform = new StringTransform[]
+            Transform[] arrTransform = new Transform[]
             {
                 makeUpper,
                 makeLower
             };
             foreach (var item in arrTransform)
             {
-                string value = item.reverseWord("ThisString");
+                string value = item.StringTransform("ThisString");
                 Console.WriteLine(value);
             }
         }
