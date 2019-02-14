@@ -6,11 +6,17 @@ namespace Rainforest
     class Company
     {
         private int nextContainer = 0;
-        public Dictionary<string, List<Warehouse>> ItemsSold;//string is item in warehouse / list of warehouses that contain item
-        public Dictionary<string, List<Container>> ContainersNotInWarehouse;
-        public Dictionary<string, List<Item>> UncontainedFruit;
-        public Dictionary<string, List<Item>> FruitOfferings;
-
+        public Dictionary<string, List<Warehouse>> ItemsSold { get; private set; }//string is item in warehouse / list of warehouses that contain item
+        public Dictionary<string, List<Container>> ContainersNotInWarehouse { get; private set; }
+        private Dictionary<string, int> UncontainedFruit = new Dictionary<string, int>();
+        private
+        public Company()
+        {
+            this.UncontainedFruit.Add("Apple", 0);
+            this.UncontainedFruit.Add("Pear", 0);
+            this.UncontainedFruit.Add("Banana", 0);
+            this.UncontainedFruit.Add("Strawberry", 0);
+        }
         private List<Warehouse> WarehousesOwned;
         //keep track of warehouses and build new warehouses
 
@@ -24,7 +30,7 @@ namespace Rainforest
 
                 if (selection == "Harvest Fruit")
                 {
-
+                    PickFruit();
                 }
                 if (selection == "Pack Container")
                 {
@@ -46,22 +52,33 @@ namespace Rainforest
         }
         public void PickFruit()
         {
-            List<string> fruits = new List<string>() { "Apple", "Pear", "Banana", "Strawberry", "New Fruit", "Exit" };
+            List<string> fruits = UncontainedFruit;
+            fruits.Add("New Fruit");
+            fruits.Add("Exit");
+            ;
             Display screen = new Display();
             string selection = "pick";
             while (selection != "Exit")
             {
                 selection = screen.Run(fruits);
-                foreach (var item in fruits)
+                if (selection == "New Fruit")
                 {
-                    if (selection == item)
-                    {
-                        break;
-                    }
+                    Console.WriteLine("Enter the name of this wonderfull new fruit:");
+                    selection = (selection == "" ? "Exit" : selection);
                 }
+                else { }
 
+
+                if (UncontainedFruit.TryGetValue(selection, out int alreadyExists))
+                {
+                    alreadyExists++;
+                    UncontainedFruit[selection] = alreadyExists;
+                }
+                else
+                {
+                    UncontainedFruit.Add(selection, 1);
+                }
             }
-
         }
         public void ConstructWarehouse(string city)
         {

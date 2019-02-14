@@ -82,15 +82,7 @@ namespace Rainforest
             buildLine.Append(chars[0]).Append(chars[1], spaces).Append(formatMe).Append(chars[1], spaces);
             while (buildLine.Length < 25)
             {
-                if (buildLine.Length == 24)
-                {
-                    buildLine.Append(chars[0]);
-
-                }
-                else if (buildLine.Length < 24)
-                {
-                    buildLine.Append(chars[1]);
-                }
+                buildLine.Append(buildLine.Length == 24 ? chars[0] : chars[1]);
             }
             return buildLine.ToString();
         }
