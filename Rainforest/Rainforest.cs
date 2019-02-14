@@ -8,7 +8,16 @@ namespace Rainforest
         static void Main(string[] args)
         {
 
-            List<string> menuItems = new List<string>() { "Harvest Fruit", "Pack Container", "Build Warehouse", "Send To Warehouse", "Find Item", "Exit" };
+            List<string> menuItems = new List<string>()
+            {
+                "Harvest Fruit",
+                "Pack Container",
+                "Build Warehouse",
+                "Send To Warehouse",
+                "Find Item",
+                "Exit"
+            };
+
             Company fruitsNThings = new Company();
             fruitsNThings.Run(menuItems);
         }

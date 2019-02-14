@@ -9,7 +9,9 @@ namespace Rainforest
         public Dictionary<string, List<Warehouse>> ItemsSold { get; private set; }//string is item in warehouse / list of warehouses that contain item
         public Dictionary<string, List<Container>> ContainersNotInWarehouse { get; private set; }
         private Dictionary<string, int> UncontainedFruit = new Dictionary<string, int>();
-        private
+        private List<Warehouse> WarehousesOwned;
+        //keep track of warehouses and build new warehouses
+
         public Company()
         {
             this.UncontainedFruit.Add("Apple", 0);
@@ -17,9 +19,6 @@ namespace Rainforest
             this.UncontainedFruit.Add("Banana", 0);
             this.UncontainedFruit.Add("Strawberry", 0);
         }
-        private List<Warehouse> WarehousesOwned;
-        //keep track of warehouses and build new warehouses
-
         public void Run(List<string> menu)
         {
             Display screen = new Display();
@@ -52,10 +51,9 @@ namespace Rainforest
         }
         public void PickFruit()
         {
-            List<string> fruits = UncontainedFruit;
+            List<string> fruits = new List<string>();
             fruits.Add("New Fruit");
             fruits.Add("Exit");
-            ;
             Display screen = new Display();
             string selection = "pick";
             while (selection != "Exit")
@@ -66,8 +64,6 @@ namespace Rainforest
                     Console.WriteLine("Enter the name of this wonderfull new fruit:");
                     selection = (selection == "" ? "Exit" : selection);
                 }
-                else { }
-
 
                 if (UncontainedFruit.TryGetValue(selection, out int alreadyExists))
                 {
