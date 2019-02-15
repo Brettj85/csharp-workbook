@@ -1,0 +1,7 @@
+namespace company
+{
+    class Rainforrest
+    {
+
+    }
+}
