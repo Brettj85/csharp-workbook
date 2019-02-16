@@ -1,27 +1,17 @@
-using System;
-using System.Collections.Generic;
-
-namespace gameboy
-{
-    class Display
-    {
-
-    }
-}
 //going to try and do this 
 /*
 _________________________________
 things we need to keep track of:
 _________________________________
-Object - Profile:
+Object - Profile:X
 
 dictionary of games and there respective dictionary of stats -  dictionary key: "game" value: (dictionary: key: "StatName" Value: int-counter)
 user full name (string) method to change / method to add
 user handle (string) method to change / method to add
 must have a display system built in
 
-Object - GameGenie:
-Add/Remove cheat:
+Object - GameGenie: Later but before games are coded
+Add/Remove cheat:Later but before games are coded
 takes in a cheat and stores on off quality. cheat itself must be code that gets run when called.
 list and run code option:
 user cheats takes in a list of cheats and returns a dictionary(key "cheat") value: code to run [ie change the life counter] dictionary key: game value: list of active cheats games will have to take in the list of cheats and refer to a cheat controller to optimize itself for the cheat
