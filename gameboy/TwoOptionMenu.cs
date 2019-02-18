@@ -42,8 +42,6 @@ namespace gameboy
             string options = DrawOptions();
             return options;
         }
-
-
         private string DrawOptions()
         {
             GetLines choice = new GetLines();

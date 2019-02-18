@@ -5,7 +5,7 @@ namespace gameboy
 {
     class Display
     {
-        private static int index = 0;
+        private static int index;
         private string title;
 
         public Display()
@@ -126,29 +126,16 @@ namespace gameboy
 
             if (userInput.Key == ConsoleKey.DownArrow)
             {
-                if (index == items.Count - 1)
-                {
-                    index = 0;
-                }
-                else { index++; }
+                index = index == items.Count - 1 ? 0 : index + 1;
             }
             else if (userInput.Key == ConsoleKey.UpArrow)
             {
-                if (index <= 0)
-                {
-                    index = items.Count - 1;
-                }
-                else { index--; }
+                index = index <= 0 ? items.Count - 1 : index - 1;
             }
             else if (userInput.Key == ConsoleKey.Enter)
             {
                 return items[index];
             }
-            else
-            {
-
-            }
-
             Console.Clear();
             return "";
         }
@@ -162,12 +149,7 @@ namespace gameboy
                 {
                     return items[index];
                 }
-                else
-                {
-
-                }
             }
-
             Console.Clear();
             return "";
         }
