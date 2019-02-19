@@ -12,8 +12,8 @@ namespace gameboy
         private string menuType = "CHEATS";
         private Display display;
         public List<string> ActiveCheats { get; private set; } = new List<string>();
-        private List<string> InactiveCheats = new List<string>() { "Immortality", "Unlimited Money", "Unlocked R.P.C", "Unlocked T.T.T", "Not So Mastermind" };
-        private List<string> CheatCodes = new List<string>() { "l1v3s", "MrBurns", "rps", "ttt", "dummy" };
+        private List<string> InactiveCheats = new List<string>() { "Immortality", "Unlimited Money", "Unlocked R.P.C", "Unlocked T.T.T", "Not So Mastermind", "Extra Blocks" };
+        private List<string> CheatCodes = new List<string>() { "l1v3s", "MrBurns", "rps", "ttt", "dummy", "harder" };
         public bool mastermind { get; private set; } = false;
         public bool towers { get; private set; } = false;
         public void CheatMenu()
