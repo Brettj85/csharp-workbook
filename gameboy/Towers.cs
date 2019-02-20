@@ -39,7 +39,7 @@ namespace gameboy
                 //     result = 1;
                 //     break;
                 // }
-                Console.Write("Continue y/n: ");
+                Console.Write("Quit? y/n: ");
                 string input = Console.ReadLine();
                 if (input != "y" || input != "Y")
                 {
