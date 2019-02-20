@@ -33,7 +33,7 @@ namespace gameboy
                     {
                         profile.scores[1][3]++;
                     }
-                    int TResult = towers.Play(cheat);
+                    int TResult = towers.Play();
                     profile.scores[0][1] = TResult == 1 ? profile.scores[0][1] + 1 : profile.scores[0][1];
                     profile.scores[0][2] = TResult == 0 ? profile.scores[0][2] + 1 : profile.scores[0][2];
                     profile.scores[0][0] = profile.scores[0][0] + 1;
