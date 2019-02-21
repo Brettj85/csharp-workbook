@@ -1,4 +1,5 @@
 using System;
+using System.Threading;
 
 namespace gameboy
 {
@@ -9,12 +10,16 @@ namespace gameboy
             switch (gameRequest)
             {
                 case "Tic Tac Toe":
-                    //TicTacToe TTT = new TicTacToe(profile, cheat);
-                    //profile = TTT.Run();
+                    Console.Clear();
+                    Console.WriteLine("feature coming soon. Check back shortly!");
+                    Thread.Sleep(1500);
+                    Console.Clear();
                     break;
                 case "Rock Paper Scissor":
-                    //RockPaperScissor RPC = new RockPaperScissor(profile, cheat);
-                    //profile = RockPaperScissor.Run();
+                    Console.Clear();
+                    Console.WriteLine("feature coming soon! Check back shortly!");
+                    Thread.Sleep(1500);
+                    Console.Clear();
                     break;
                 case "Mastermind":
                     Mastermind masterMind = new Mastermind();

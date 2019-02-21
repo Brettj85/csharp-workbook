@@ -17,11 +17,15 @@ namespace gameboy
         public int index { get; private set; }
         public Towers(CheatController c)
         {
-            //StartingBlocks = c.ActiveCheats.Contains("Extra Blocks") ? 10 : 4;
-            //for (int i = 4; i == StartingBlocks; i++)
-            //{
-            //    Blocks.Add(12 + 4 * i);
-            //}
+            StartingBlocks = c.ActiveCheats.Contains("Extra Blocks") ? 20 : 4;
+            if (StartingBlocks > 4)
+            {
+                Blocks.RemoveRange(0, Blocks.Count);
+                for (int i = 0; i < StartingBlocks; i++)
+                {
+                    Blocks.Add(4 * i);
+                }
+            }
             PegHight = Blocks.Count + 2;
             Blocks.Reverse();
             Stack<int> p1 = new Stack<int>();
@@ -59,8 +63,7 @@ namespace gameboy
                     string unformattedPeg = Choice();
                     int formatPeg = Convert.ToInt32(unformattedPeg.Replace(" ", String.Empty).Substring(0, 1));
                     ClearPegs();
-                    int pegdel = Pegs[formatPeg].Peek();
-                    if (pegdel > requestedBlock || Pegs[formatPeg].Count == 0)
+                    if (Pegs[formatPeg].Count == 0 || Pegs[formatPeg].Peek() > requestedBlock)
                     {
                         Pegs[formatPeg].Push(requestedBlock);
                         break;
@@ -72,11 +75,11 @@ namespace gameboy
                     }
                 }
                 ConstructPegs();
-                // if (CheckWin())
-                // {
-                //     result = 1;
-                //     break;
-                // }
+                if (CheckWin())
+                {
+                    result = 1;
+                    break;
+                }
             }
             return result;
         }
@@ -261,6 +264,16 @@ namespace gameboy
                 return items[index];
             }
             return "";
+        }
+        public bool CheckWin()
+        {
+            ClearPegs();
+            bool win = false;
+            if (Pegs[1].Count == PegHight - 2 || Pegs[2].Count == PegHight - 2)
+            {
+                win = true;
+            }
+            return win;
         }
     }
 }
