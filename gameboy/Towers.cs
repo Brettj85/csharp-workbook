@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Threading;
 using System.Text;
 
 namespace gameboy
@@ -17,7 +18,7 @@ namespace gameboy
         public int index { get; private set; }
         public Towers(CheatController c)
         {
-            StartingBlocks = c.ActiveCheats.Contains("Extra Blocks") ? 20 : 4;
+            StartingBlocks = c.ActiveCheats.Contains("Extra Blocks") ? 10 : 4;
             if (StartingBlocks > 4)
             {
                 Blocks.RemoveRange(0, Blocks.Count);
@@ -77,7 +78,11 @@ namespace gameboy
                 ConstructPegs();
                 if (CheckWin())
                 {
+                    Console.Clear();
+                    Console.WriteLine("You have Won!");
+                    Thread.Sleep(1500);
                     result = 1;
+                    Console.Clear();
                     break;
                 }
             }
