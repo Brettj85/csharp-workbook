@@ -20,7 +20,7 @@ namespace whiteboard20th
     {
         public static bool IsUnique(string word)
         {
-            bool returnMe = false;
+            bool returnMe;
             foreach (var letter in word)
             {
                 char temp = letter;
