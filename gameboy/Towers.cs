@@ -22,7 +22,7 @@ namespace gameboy
             //{
             //    Blocks.Add(12 + 4 * i);
             //}
-            PegHight = StartingBlocks + 2;
+            PegHight = Blocks.Count + 2;
             Blocks.Reverse();
             Stack<int> p1 = new Stack<int>();
             Stack<int> p2 = new Stack<int>();
@@ -30,6 +30,10 @@ namespace gameboy
             Pegs.Add(p1);
             Pegs.Add(p2);
             Pegs.Add(p3);
+            foreach (var item in Blocks)
+            {
+                Pegs[0].Push(item);
+            }
             ConstructPegs();
         }
         public int Play()
@@ -37,97 +41,94 @@ namespace gameboy
             int result = 0;
             while (true)
             {
-                ConstructBoard();
-                int pullBlock = 0;
-                string chosen = "";
+                int requestedBlock = 0;
+                int from = 0;
                 while (true)
                 {
-                    chosen = ChooseBlock();
-                    int block = Convert.ToInt32(chosen.Replace(" ", String.Empty).Substring(0, 1));
-                    int amount = 0;
-                    while (Pegs[block].Peek() == 0 && Pegs[block].Count > 1)
+                    string unformatedChoice = Choice();
+                    from = Convert.ToInt32(unformatedChoice.Replace(" ", String.Empty).Substring(0, 1));
+                    ClearPegs();
+                    if (Pegs[from].Count != 0)
                     {
-                        Pegs[block].Pop();
-                        amount++;
-                    }
-                    int currentBlock = Pegs[block].Peek();
-                    if (currentBlock != 0)
-                    {
-                        pullBlock = Pegs[block].Pop();
-                        Pegs[block].Push(0);
-                        Pegs[block].Push(0);
+                        requestedBlock = Pegs[from].Pop();
                         break;
-                    }
-                    for (var j = amount; j == 0; j--)
-                    {
-                        Pegs[block].Push(0);
                     }
                 }
                 while (true)
                 {
-                    int tally = 0;
-                    string toPeg = ChoosePeg();
-                    int peg = Convert.ToInt32(toPeg.Replace(" ", String.Empty).Substring(0, 1));
-                    while (Pegs[peg].Peek() == 0 && Pegs[peg].Count > 1)
+                    string unformattedPeg = Choice();
+                    int formatPeg = Convert.ToInt32(unformattedPeg.Replace(" ", String.Empty).Substring(0, 1));
+                    ClearPegs();
+                    int pegdel = Pegs[formatPeg].Peek();
+                    if (pegdel > requestedBlock || Pegs[formatPeg].Count == 0)
                     {
-                        Pegs[peg].Pop();
-                        tally++;
-                    }
-                    int current = Pegs[peg].Peek();
-                    if (chosen.Length < current)
-                    {
-                        Pegs[peg].Pop();
-                        Pegs[peg].Push(pullBlock);
-                        Pegs[peg].Push(0);
-                        Pegs[peg].Push(0);
+                        Pegs[formatPeg].Push(requestedBlock);
                         break;
                     }
-                    for (var j = tally; j == 0; j--)
+                    else
                     {
-                        Pegs[peg].Push(0);
+                        Pegs[from].Push(requestedBlock);
+                        break;
                     }
                 }
-
+                ConstructPegs();
                 // if (CheckWin())
                 // {
                 //     result = 1;
                 //     break;
                 // }
-                Console.Write("Quit? y/n: ");
-                string input = Console.ReadLine();
-                if (input != "y" || input != "Y")
-                {
-                    break;
-                }
             }
             return result;
         }
+        public void ClearPegs()
+        {
+            Stack<int> peg = Pegs[0];
+            for (var i = 0; i < PegHight; i++)
+            {
+                if (peg.Peek() == 0)
+                {
+                    peg.Pop();
+                }
+            }
+            peg = Pegs[1];
+            for (var i = 0; i < PegHight; i++)
+            {
+                if (peg.Peek() == 0)
+                {
+                    peg.Pop();
+                }
+            }
+            peg = Pegs[2];
+            for (var i = 0; i < PegHight; i++)
+            {
+                if (peg.Peek() == 0)
+                {
+                    peg.Pop();
+                }
+            }
+        }
         private void ConstructPegs()
         {
-            int height = Blocks.Count + 2;
-            foreach (var item in Blocks)
-            {
-                Pegs[0].Push(item);
-                Pegs[1].Push(0);
-                Pegs[2].Push(0);
-            }
-            for (int i = 0; i < 2; i++)
+            while (Pegs[0].Count < PegHight)
             {
                 Pegs[0].Push(0);
+            }
+            while (Pegs[1].Count < PegHight)
+            {
                 Pegs[1].Push(0);
+            }
+            while (Pegs[2].Count < PegHight)
+            {
                 Pegs[2].Push(0);
             }
         }
         private void ConstructBoard()
         {
-            int space = (StartingBlocks) * 2;
-            Stack<int> pegOne = Pegs[0];
-            Stack<int> pegTwo = Pegs[1];
-            Stack<int> pegThree = Pegs[2];
+            ConstructPegs();
 
-            List<string> stackOne = buildLines(pegOne);
-            List<string> stackTwo = buildLines(pegTwo);
-            List<string> stackThree = buildLines(pegThree);
+            List<string> stackOne = buildLines(Pegs[0]);
+            List<string> stackTwo = buildLines(Pegs[1]);
+            List<string> stackThree = buildLines(Pegs[2]);
 
             for (int i = 0; i < stackOne.Count; i++)
             {
@@ -160,7 +161,7 @@ namespace gameboy
 
             return stack;
         }
-        private string ChooseBlock()
+        private string Choice()
         {
             index = 0;
             int spaces = (Blocks.Count * 4);
@@ -176,9 +177,9 @@ namespace gameboy
 
             while (response == "")
             {
-                Console.Clear();
                 ConstructBoard();
                 response = DrawOptions(options);
+                Console.Clear();
             }
             return response;
         }
