@@ -44,13 +44,20 @@ namespace gameboy
         public int Play()
         {
             int result = 0;
-            while (true)
+            bool play = true;
+            while (play)
             {
                 int requestedBlock = 0;
                 int from = 0;
-                while (true)
+                while (play)
                 {
+
                     string unformatedChoice = Choice();
+                    if (unformatedChoice == "Exit")
+                    {
+                        play = false;
+                        break;
+                    }
                     from = Convert.ToInt32(unformatedChoice.Replace(" ", String.Empty).Substring(0, 1));
                     ClearPegs();
                     if (Pegs[from].Count != 0)
@@ -61,8 +68,14 @@ namespace gameboy
                 }
                 while (true)
                 {
-                    string unformattedPeg = Choice();
-                    int formatPeg = Convert.ToInt32(unformattedPeg.Replace(" ", String.Empty).Substring(0, 1));
+                    if (!play) { break; }
+                    string unformatedChoice = Choice();
+                    if (unformatedChoice == "Exit")
+                    {
+                        play = false;
+                        break;
+                    }
+                    int formatPeg = Convert.ToInt32(unformatedChoice.Replace(" ", String.Empty).Substring(0, 1));
                     ClearPegs();
                     if (Pegs[formatPeg].Count == 0 || Pegs[formatPeg].Peek() > requestedBlock)
                     {
@@ -85,6 +98,9 @@ namespace gameboy
                     Console.Clear();
                     break;
                 }
+                Console.Clear();
+                Console.WriteLine("Continue Playing? y/n");
+
             }
             return result;
         }
@@ -181,6 +197,7 @@ namespace gameboy
                 menuOption.Append(MenuElements[0], spaces / 2 - 1).Append(i).Append(MenuElements[1]).Append(MenuElements[2]).Append(MenuElements[0], 1).Append(MenuElements[0], spaces / 2 - 1);
                 options.Add(menuOption.ToString());
             }
+            options.Add("Exit");
             string response = "";
 
             while (response == "")

@@ -25,10 +25,14 @@ namespace gameboy
                 string letters = "";
                 while (letters.Length != 4)
                 {
-                    Console.WriteLine("Choose four letters: ");
+                    Console.WriteLine("Choose four letters or e for exit: ");
                     letters = Console.ReadLine();
                 }
-
+                if (letters.ToLower() == "exit")
+                {
+                    turns = 0;
+                    break;
+                }
                 Ball[] balls = new Ball[4];
                 for (int i = 0; i < 4; i++)
                 {
@@ -46,6 +50,7 @@ namespace gameboy
                     Console.WriteLine("You Win");
                     Thread.Sleep(1000);
                     TurnsRemaining = turns;
+                    Console.Clear();
                     break;
                 }
                 game.AddRow(row);
@@ -53,6 +58,7 @@ namespace gameboy
 
             }
             Console.WriteLine(TurnsRemaining != 0 ? "Great Job" : "Out Of Turns");
+            Console.Clear();
             return TurnsRemaining != 0 ? 1 : 0;
         }
         public static string[] GenerateSolution(CheatController cheats)
