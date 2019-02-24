@@ -7,6 +7,7 @@ namespace TextDungeon
     {
 
         private Dictionary<string, List<int>> Type = new Dictionary<string, List<int>>();
+
         //(str, int, armor modifier, resistances - fire, ice, earth, air, light, dark)
         public BeingTypes()
         {
@@ -20,7 +21,13 @@ namespace TextDungeon
             Type.Add("goblin", new List<int> { -5, 5, 0, 0, 0, 0, 0, 5, -5 });
             Type.Add("troll", new List<int> { 7, -5, 6, 3, 3, 3, 3, 10, 0 });
             Type.Add("Centar", new List<int> { 7, -5, 6, 3, 3, 3, 3, 0, 10 });
-            Type.Add("Beast", new List<int> { 5, -10, 0, 0, 0, 0, 0, 0, 0 });
+            Type.Add("Beast", new List<int> { 2, 0, 0, 3, -2, -2, -2, 2, 2 });
+            Type.Add("special", new List<int> { 0, 0, 0, 0, 0, 0, 0, 0, 0 });
+        }
+        public List<int> ReturnRaceAttributes(string t)
+        {
+            List<int> type = Type[t];
+            return type;
         }
     }
 }

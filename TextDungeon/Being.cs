@@ -8,17 +8,23 @@ namespace TextDungeon
         public int level { get; private set; }
         public string Name { get; private set; }
         public string Type { get; private set; }
-        public int Health { get; private set; }
-        public List<int> stats { get; private set; }
-        public List<string> Items { get; private set; }
-        public abstract int Attack();
+        public List<int> Stats { get; private set; }
+        public List<string> Equipment { get; private set; }
         public abstract int SpecialOne();
         public abstract int SpecialTwo();
         public abstract int SpecialThree();
         private void SetInitialStats(int level, string monsterType)
         {
             BeingTypes basetype = new BeingTypes();
-            List<int> baseAbility = basetype.ReturnRaceAttributes(Type);
+            Stats = basetype.ReturnRaceAttributes(Type);
+        }
+        public void AddEquipment()
+        {
+
+        }
+        public int Attack()
+        {
+            return Stats[0];
         }
     }
 }
