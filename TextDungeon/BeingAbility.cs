@@ -2,7 +2,7 @@ using System;
 
 namespace TextDungeon
 {
-    class Ability
+    public class BeingAbility
     {
     }
 }

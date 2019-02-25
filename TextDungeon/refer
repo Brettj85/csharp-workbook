@@ -6,3 +6,32 @@ namespace TextDungeon
     {
     }
 }
+
+foreach (var item in RemoveMe)
+            {
+                switch (item.Value[0])
+                {
+                    case 0:
+                    Weapons.Remove(item);
+                    break;
+                    case 1:
+                    Armor.Remove(item);
+                    break;
+                    case 2:
+                    Helmet.Remove(item);
+                    break;
+                    case 3:
+                    Gloves.Remove(item);
+                    break;
+                    case 4:
+                    Legs.Remove(item);
+                    break;
+                    case 5:
+                    Boots.Remove(item);
+                    break;
+                    case 6:
+                    Accessories.Remove(item);
+                    break;
+                    default:
+                    //catch
+                    break;
