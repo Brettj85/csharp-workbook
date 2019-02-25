@@ -11,17 +11,34 @@ namespace TextDungeon
         public List<int> Stats { get; private set; }
         public BeingEquipment Equipment { get; private set; }
         public BeingAbility Ability { get; private set; }
-        public abstract int SpecialOne();
-        public abstract int SpecialTwo();
-        public abstract int SpecialThree();
+        public abstract int AttackOne();
+        public abstract int AttackTwo();
+        public abstract int AttackThree();
         private void SetStats(int level, string monsterType)
         {
             BeingTypes basetype = new BeingTypes();
             Stats = basetype.ReturnRaceAttributes(Type);
         }
-        public int Attack()
+        public int Melee()
         {
-            return Stats[0];
+            Ability.Melee();
+        }
+        public int Magic()
+        {
+            Ability.Magic();
+        }
+        public int Utility()
+        {
+            Ability.Utility();
         }
     }
 }
+
+
+// ╠
+// ║╔══╗  ║
+// ╠╝  ║  ║
+//╔╬══╦╩══╣
+//╚╣  ║   ║
+// ╝
+//⚫◯
