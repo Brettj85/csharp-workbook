@@ -10,5 +10,6 @@ namespace CheckersCheckpoint
         {
             new Game();
         }
+
     }
 }
