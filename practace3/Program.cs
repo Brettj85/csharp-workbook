@@ -9,17 +9,17 @@ namespace practace3
             bool people = true;
             bool f = false;
             decimal num = 30.2m;
-            Console.WriteLine("the number {0} multiplied by itself is {1}", num, num*num);
+            Console.WriteLine("the number {0} multiplied by itself is {1}", num, num * num);
 
-            string firstName = "Brett";
-            string lastName = "Jackson";
+            string firstName = "";
+            string lastName = "";
             int age = 33;
-            string job = "Network Engineer";
-            string favoriteBand = "Rise Against";
-            string favoriteSportsTeam = "Buffalo Bills";
+            string job = "";
+            string favoriteBand = "";
+            string favoriteSportsTeam = "";
 
             int decToInt = Convert.ToInt32(num);
-            Console.WriteLine("{0} {1} {2} {3}", 100+10, 100*10, 100/10, 100-10);
+            Console.WriteLine("{0} {1} {2} {3}", 100 + 10, 100 * 10, 100 / 10, 100 - 10);
 
         }
     }
