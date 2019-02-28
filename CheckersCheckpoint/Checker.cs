@@ -17,12 +17,12 @@ namespace CheckersCheckpoint
 
             if (color == "white")
             {
-                circleId = int.Parse(" 25CE", System.Globalization.NumberStyles.HexNumber);
+                circleId = int.Parse("25CE", System.Globalization.NumberStyles.HexNumber);
                 Color = "white";
             }
             else
             {
-                circleId = int.Parse(" 25C9", System.Globalization.NumberStyles.HexNumber);
+                circleId = int.Parse("25C9", System.Globalization.NumberStyles.HexNumber);
                 Color = "black";
             }
             this.Symbol = char.ConvertFromUtf32(circleId);

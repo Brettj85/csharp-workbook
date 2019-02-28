@@ -15,16 +15,8 @@ namespace CheckersCheckpoint
             this.CreateBoard();
             return;
         }
-        public string[][] Grid
-        {
-            get;
-            set;
-        }
-        public List<Checker> Checkers
-        {
-            get;
-            set;
-        }
+        public string[][] Grid { get; set; }
+        public List<Checker> Checkers { get; set; }
 
 
         public void CreateBoard()
@@ -77,7 +69,7 @@ namespace CheckersCheckpoint
         {
             foreach (var checker in Checkers)
             {
-                // Console.WriteLine(checker.Position[0] + " " + checker.Position[1]);
+                ;
                 this.Grid[checker.Position[0]][checker.Position[1]] = checker.Symbol;
             }
             return;
