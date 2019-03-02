@@ -13,11 +13,16 @@ namespace NewCheckers
         }
         public static void MoveChecker(Checker piece, Coordinates cords)
         {
-            CheckValidity(piece, cords);
+            bool validChecker = CheckValidity(piece, cords);
+            if (validChecker)
+            {
+
+            }
         }
-        private static bool CheckValidity(Checker piece, Coordinates cords)
+        private static bool CheckValidity(Checker piece, Coordinates cords, int PlayerTurn)
         {
             bool valid = false;
+            bool validChecker = IsCheckerValid(PlayerTurn, piece)
             bool direction = CheckDirection(piece, cords);
             bool space = CheckSpace(piece, cords);
             valid = direction && space ? true : false;

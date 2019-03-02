@@ -4,6 +4,6 @@ namespace NewCheckers
 {
     public class Game
     {
-        //request both moves
+        //request both moves controle board
     }
 }
