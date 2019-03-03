@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Threading;
 
 namespace NewCheckers
 {
@@ -10,40 +11,70 @@ namespace NewCheckers
         public void board()
         {
             pieces = new Dictionary<Coordinates, Checker>();
+            CreateCheckers buildNew = new CreateCheckers();
+            pieces = buildNew.InitialCheckers();
         }
-        public static void MoveChecker(Checker piece, Coordinates cords, int PlayerTurn)
-        {
-            bool validChecker = CheckValidity(piece, cords, PlayerTurn);
-            if (validChecker)
-            {
 
+        public void ChooseMove(int PlayerTurn)
+        {
+            int row = PickRow();
+            int column = PickColumn();
+            Coordinates from = new Coordinates(row, column);
+            Checker result;
+            if (pieces.TryGetValue(from, out result))
+            {
+                if (PlayerTurn == 0 && result.Color == "25ce")
+                {
+                    int toRow = PickRow();
+                    int toColumn = PickColumn();
+                    Coordinates to = new Coordinates(toRow, toColumn);
+                    bool valid = CheckValidity(to, from);
+                    if (valid)
+                    {
+                        pieces[to] = pieces[from];
+                        pieces[from] = null;
+                    }
+                }
+                else if (PlayerTurn == 1 && result.Color == "25c9")
+                {
+                    int toRow = PickRow();
+                    int toColumn = PickColumn();
+                    Coordinates to = new Coordinates(toRow, toColumn);
+                    bool valid = CheckValidity(to, from);
+                    if (valid)
+                    {
+                        pieces[to] = pieces[from];
+                        pieces[from] = null;
+                    }
+                }
+                else
+                {
+                    Console.Clear();
+                    Console.WriteLine("Invalid Selection.");
+                    Thread.Sleep(500);
+                }
             }
+
+            //if this "cords" (row/column) contains a checker of the Player whos turn this is initiate move checker
         }
-        private static bool CheckValidity(Checker piece, Coordinates cords, int PlayerTurn)
+        private static bool CheckValidity(Coordinates to, Coordinates from)
         {
             bool valid = false;
-            bool validChecker = IsCheckerValid(PlayerTurn, piece);
-            bool direction = CheckDirection(piece, cords);
-            bool space = CheckSpace(piece, cords);
-            valid = direction && space ? true : false;
+            bool validDirection = CheckDirection(to, from);
+            bool space = CheckLanding(to, from);
+            valid = validDirection && space ? true : false;
             return valid;
         }
-        private static bool IsCheckerValid(int turn, Checker piece)
+        private static bool CheckDirection(Coordinates to, Coordinates from)
         {
             bool valid = false;
-            //check checker
+            //check direction validity. king? if yes can go backwards, player 1 goes one way 2 the other
             return valid;
         }
-        private static bool CheckDirection(Checker piece, Coordinates cords)
+        private static bool CheckLanding(Coordinates to, Coordinates from)
         {
             bool valid = false;
-            //check direction validity
-            return valid;
-        }
-        private static bool CheckSpace(Checker piece, Coordinates cords)
-        {
-            bool valid = false;
-            // check landing space validity
+            // check landing space validity is another checker already here, is it a valid space
             return valid;
         }
     }
