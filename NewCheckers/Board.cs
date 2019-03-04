@@ -7,7 +7,6 @@ namespace NewCheckers
     public class Board
     {
         public Dictionary<Coordinates, Checker> pieces { get; set; }
-        public static Dictionary<Coordinates, Checker> StaticBoard { get; set; }
 
         public void board()
         {
@@ -29,10 +28,11 @@ namespace NewCheckers
                     int toRow = PickRow();
                     int toColumn = PickColumn();
                     Coordinates to = new Coordinates(toRow, toColumn);
-                    StaticBoard = pieces;
-                    bool valid = CheckValidity(to, from);
+                    CheckMoveValidity check = new CheckMoveValidity(pieces);
+                    bool valid = check.Validity(to, from);
                     if (valid)
                     {
+                        pieces[check.RemoveMe.X, check.RemoveMe.Y]
                         this.pieces[to] = pieces[from];
                         this.pieces[from] = null;
                     }
@@ -42,8 +42,8 @@ namespace NewCheckers
                     int toRow = PickRow();
                     int toColumn = PickColumn();
                     Coordinates to = new Coordinates(toRow, toColumn);
-                    StaticBoard = pieces;
-                    bool valid = CheckValidity(to, from);
+                    CheckMoveValidity check = new CheckMoveValidity(pieces);
+                    bool valid = check.Validity(to, from);
                     if (valid)
                     {
                         this.pieces[to] = pieces[from];
@@ -59,27 +59,6 @@ namespace NewCheckers
             }
 
             //if this "cords" (row/column) contains a checker of the Player whos turn this is initiate move checker
-        }
-        private static bool CheckValidity(Coordinates to, Coordinates from)
-        {
-            bool valid = false;
-            bool validDirection = CheckDirection(to, from);
-            bool space = CheckLanding(to, from);
-            valid = validDirection && space ? true : false;
-            return valid;
-        }
-        private static bool CheckDirection(Coordinates to, Coordinates from)
-        {
-            bool valid = false;
-            bool isKing = StaticBoard[to].King;
-            //check direction validity. king? if yes can go backwards, player 1 goes one way 2 the other
-            return valid;
-        }
-        private static bool CheckLanding(Coordinates to, Coordinates from)
-        {
-            bool valid = false;
-            // check landing space validity is another checker already here, is it a valid space
-            return valid;
         }
     }
 }
