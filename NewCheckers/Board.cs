@@ -6,13 +6,14 @@ namespace NewCheckers
 {
     public class Board
     {
-        public Dictionary<Coordinates, Checker> pieces { get; set; } = new Dictionary<Coordinates, Checker>();
+        public Dictionary<Coordinates, Checker> pieces { get; set; }
+        public static Dictionary<Coordinates, Checker> StaticBoard { get; set; }
 
         public void board()
         {
-            pieces = new Dictionary<Coordinates, Checker>();
+            this.pieces = new Dictionary<Coordinates, Checker>();
             CreateCheckers buildNew = new CreateCheckers();
-            pieces = buildNew.InitialCheckers();
+            this.pieces = buildNew.InitialCheckers();
         }
 
         public void ChooseMove(int PlayerTurn)
@@ -28,11 +29,12 @@ namespace NewCheckers
                     int toRow = PickRow();
                     int toColumn = PickColumn();
                     Coordinates to = new Coordinates(toRow, toColumn);
+                    StaticBoard = pieces;
                     bool valid = CheckValidity(to, from);
                     if (valid)
                     {
-                        pieces[to] = pieces[from];
-                        pieces[from] = null;
+                        this.pieces[to] = pieces[from];
+                        this.pieces[from] = null;
                     }
                 }
                 else if (PlayerTurn == 1 && result.Color == "25c9")
@@ -40,11 +42,12 @@ namespace NewCheckers
                     int toRow = PickRow();
                     int toColumn = PickColumn();
                     Coordinates to = new Coordinates(toRow, toColumn);
+                    StaticBoard = pieces;
                     bool valid = CheckValidity(to, from);
                     if (valid)
                     {
-                        pieces[to] = pieces[from];
-                        pieces[from] = null;
+                        this.pieces[to] = pieces[from];
+                        this.pieces[from] = null;
                     }
                 }
                 else
@@ -68,6 +71,7 @@ namespace NewCheckers
         private static bool CheckDirection(Coordinates to, Coordinates from)
         {
             bool valid = false;
+            bool isKing = StaticBoard[to].King;
             //check direction validity. king? if yes can go backwards, player 1 goes one way 2 the other
             return valid;
         }

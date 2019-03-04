@@ -8,12 +8,12 @@ namespace NewCheckers
         public bool King { get; private set; }
         public Checker(string color)
         {
-            King = false;
-            Color = color == "white" ? "25ce" : "25c9";
+            this.King = false;
+            this.Color = color == "white" ? "25ce" : "25c9";
         }
         public void MakeKing()
         {
-            King = true;
+            this.King = true;
         }
     }
 }

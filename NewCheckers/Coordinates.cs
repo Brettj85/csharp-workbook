@@ -8,8 +8,8 @@ namespace NewCheckers
         public int Y { get; private set; }
         public Coordinates(int x, int y)
         {
-            X = x;
-            Y = y;
+            this.X = x;
+            this.Y = y;
         }
     }
 }
