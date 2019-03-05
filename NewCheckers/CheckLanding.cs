@@ -39,7 +39,9 @@ namespace NewCheckers
             }
             if (isValidLanding)
             {
-                if (toX - 2 == x || )
+
+                if ()
+
             }
 
         }
