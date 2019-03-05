@@ -8,57 +8,90 @@ namespace NewCheckers
     {
         public Dictionary<Coordinates, Checker> pieces { get; set; }
 
-        public void board()
+        public Board()
         {
-            this.pieces = new Dictionary<Coordinates, Checker>();
-            CreateCheckers buildNew = new CreateCheckers();
-            this.pieces = buildNew.InitialCheckers();
-        }
-
-        public void ChooseMove(int PlayerTurn)
-        {
-            int row = PickRow();
-            int column = PickColumn();
-            Coordinates from = new Coordinates(row, column);
-            Checker result;
-            if (pieces.TryGetValue(from, out result))
+            pieces = new Dictionary<Coordinates, Checker>();
+            for (int i = 0; i < 8; i++)
             {
-                if (PlayerTurn == 0 && result.Color == "25ce")
+                for (int j = 0; j < 8; j++)
                 {
-                    int toRow = PickRow();
-                    int toColumn = PickColumn();
-                    Coordinates to = new Coordinates(toRow, toColumn);
-                    CheckMoveValidity check = new CheckMoveValidity(pieces);
-                    bool valid = check.Validity(to, from);
-                    if (valid)
+                    Coordinates cord = new Coordinates(i, j);
+                    Checker check = null;
+                    switch (i)
                     {
-                        pieces[check.RemoveMe.X, check.RemoveMe.Y]
-                        this.pieces[to] = pieces[from];
-                        this.pieces[from] = null;
+                        case 0:
+                            if (j % 2 == 0 || j == 0)
+                            {
+                                check = new Checker("black");
+                                pieces.Add(cord, check);
+                            }
+                            else
+                            {
+                                pieces.Add(cord, null);
+                            }
+                            break;
+                        case 1:
+                            if (j % 2 == 0 || j == 0)
+                            {
+                                pieces.Add(cord, null);
+                            }
+                            else
+                            {
+                                check = new Checker("black");
+                                pieces.Add(cord, check);
+                            }
+                            break;
+                        case 2:
+                            if (j % 2 == 0 || j == 0)
+                            {
+                                check = new Checker("black");
+                                pieces.Add(cord, check);
+                            }
+                            else
+                            {
+                                pieces.Add(cord, null);
+                            }
+                            break;
+                        case 5:
+                            if (j % 2 == 0 || j == 0)
+                            {
+                                pieces.Add(cord, null);
+                            }
+                            else
+                            {
+                                check = new Checker("white");
+                                pieces.Add(cord, check);
+                            }
+                            break;
+                        case 6:
+                            if (j % 2 == 0 || j == 0)
+                            {
+                                check = new Checker("white");
+                                pieces.Add(cord, check);
+                            }
+                            else
+                            {
+                                pieces.Add(cord, null);
+                            }
+                            break;
+                        case 7:
+                            if (j % 2 == 0 || j == 0)
+                            {
+                                pieces.Add(cord, null);
+                            }
+                            else
+                            {
+                                check = new Checker("white");
+                                pieces.Add(cord, check);
+                            }
+                            break;
+                        default:
+                            pieces.Add(cord, null);
+                            break;
                     }
-                }
-                else if (PlayerTurn == 1 && result.Color == "25c9")
-                {
-                    int toRow = PickRow();
-                    int toColumn = PickColumn();
-                    Coordinates to = new Coordinates(toRow, toColumn);
-                    CheckMoveValidity check = new CheckMoveValidity(pieces);
-                    bool valid = check.Validity(to, from);
-                    if (valid)
-                    {
-                        this.pieces[to] = pieces[from];
-                        this.pieces[from] = null;
-                    }
-                }
-                else
-                {
-                    Console.Clear();
-                    Console.WriteLine("Invalid Selection.");
-                    Thread.Sleep(500);
                 }
             }
-
-            //if this "cords" (row/column) contains a checker of the Player whos turn this is initiate move checker
         }
     }
 }
+

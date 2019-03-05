@@ -2,7 +2,7 @@ using System;
 
 namespace NewCheckers
 {
-    public class Coordinates
+    public struct Coordinates
     {
         public int X { get; private set; }
         public int Y { get; private set; }
