@@ -10,7 +10,8 @@ namespace NewCheckers
         private Coordinates From;
         private Coordinates To;
         public bool Valid = false;
-        public Coordinates remove;
+        public Coordinates Remove;
+        public bool Jumped = false;
         public IsValid(int turn, Dictionary<Coordinates, Checker> curBoard, Coordinates from, Coordinates to)
         {
             this.CurBoard = curBoard;
@@ -20,19 +21,21 @@ namespace NewCheckers
         }
         public bool Run()
         {
-            bool isFromValid = CheckFrom();
-            bool isToValid = CheckTo();
+            bool isFromValid = false;
+            bool isToValid = false;
+            isFromValid = CheckFrom();
+            isToValid = CheckTo();
             this.Valid = isFromValid && isToValid ? true : false;
             return Valid;
         }
         private bool CheckFrom()
         {
             bool from;
-            if (Turn == 1 && CurBoard[From].ColorAbs == "white")
+            if (Turn == 1 && CurBoard[From] != null && CurBoard[From].ColorAbs == "white")
             {
                 from = true;
             }
-            else if (Turn == 2 && CurBoard[From].ColorAbs == "black")
+            else if (Turn == 2 && CurBoard[From] != null && CurBoard[From].ColorAbs == "black")
             {
                 from = true;
             }
@@ -46,7 +49,49 @@ namespace NewCheckers
         {
             bool to = false;
             CheckLanding land = new CheckLanding();
-            land.Run(From, To, CurBoard);
+            to = land.Run(From, To, CurBoard);
+            if (land.Jumped)
+            {
+                this.Remove = land.Remove;
+                this.Jumped = true;
+            }
+            if (Turn == 1 && (From.X - To.X) < 0)
+            {
+                Checker tryMe;
+                if (!CurBoard.TryGetValue(From, out tryMe))
+                {
+                    if (tryMe != null)
+                    {
+                        if (!tryMe.King)
+                        {
+                            to = false;
+                        }
+                    }
+                }
+                else
+                {
+                    to = false;
+                }
+            }
+            if (Turn == 2 && (To.X - From.X) < 0)
+            {
+                Checker tryMe;
+                if (!CurBoard.TryGetValue(From, out tryMe))
+                {
+                    if (tryMe != null && !tryMe.King)
+                        if (tryMe != null)
+                        {
+                            if (!tryMe.King)
+                            {
+                                to = false;
+                            }
+                        }
+                }
+                else
+                {
+                    to = false;
+                }
+            }
             return to;
         }
 

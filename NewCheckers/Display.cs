@@ -8,6 +8,8 @@ namespace NewCheckers
     {
         public Dictionary<Coordinates, string> pieces { get; set; }
         private int index = 0;
+        private Boolean Second = false;
+        private Coordinates cordsPrior;
         public Display(Dictionary<Coordinates, Checker> board)
         {
             pieces = new Dictionary<Coordinates, string>();
@@ -32,8 +34,19 @@ namespace NewCheckers
                 }
             }
         }
-        public int ChooseX(int player)//ChooseX
+        public int ChooseX(int player, string one, string two)//ChooseX
         {
+            if (one != null && two != null)
+            {
+                int x = Convert.ToInt32(one);
+                int y = Convert.ToInt32(two);
+                cordsPrior = new Coordinates(x, y);
+                string testMe = "";
+                if (pieces.TryGetValue(cordsPrior, out testMe))
+                {
+                    Second = testMe == null ? false : true;
+                }
+            }
             Console.Clear();
             Coordinates cord;
             string returnMe = "";
@@ -47,7 +60,7 @@ namespace NewCheckers
                     if (index == i)
                     {
                         Console.BackgroundColor = ConsoleColor.Black;
-                        Console.ForegroundColor = ConsoleColor.Red;
+                        Console.ForegroundColor = ConsoleColor.Green;
                         Console.Write(i);
                         Console.Write(" ");
                     }
@@ -66,10 +79,24 @@ namespace NewCheckers
                             if (j == 0 || j % 2 == 0)
                             {
                                 Console.BackgroundColor = ConsoleColor.White;
+                                if (Second)
+                                {
+                                    if (cord.X == cordsPrior.X && cord.Y == cordsPrior.Y)
+                                    {
+                                        Console.BackgroundColor = ConsoleColor.Blue;
+                                    }
+                                }
                             }
                             else
                             {
                                 Console.BackgroundColor = ConsoleColor.Black;
+                                if (Second)
+                                {
+                                    if (cord.X == cordsPrior.X && cord.Y == cordsPrior.Y)
+                                    {
+                                        Console.BackgroundColor = ConsoleColor.Blue;
+                                    }
+                                }
                             }
                         }
                         else
@@ -77,10 +104,24 @@ namespace NewCheckers
                             if (j == 0 || j % 2 == 0)
                             {
                                 Console.BackgroundColor = ConsoleColor.Black;
+                                if (Second)
+                                {
+                                    if (cord.X == cordsPrior.X && cord.Y == cordsPrior.Y)
+                                    {
+                                        Console.BackgroundColor = ConsoleColor.Blue;
+                                    }
+                                }
                             }
                             else
                             {
                                 Console.BackgroundColor = ConsoleColor.White;
+                                if (Second)
+                                {
+                                    if (cord.X == cordsPrior.X && cord.Y == cordsPrior.Y)
+                                    {
+                                        Console.BackgroundColor = ConsoleColor.Blue;
+                                    }
+                                }
                             }
                         }
                         string value = "";
@@ -92,6 +133,7 @@ namespace NewCheckers
                             {
                                 value = char.ConvertFromUtf32(int.Parse("25CF", System.Globalization.NumberStyles.HexNumber));
                                 Console.ForegroundColor = ConsoleColor.Red;
+
                                 Console.Write(value);
                                 Console.Write(" ");
                             }
@@ -135,8 +177,19 @@ namespace NewCheckers
             Console.Clear();
             return "";
         }
-        public int ChooseY(int player, int x)//PickY
+        public int ChooseY(int player, int x, string one, string two)//PickY
         {
+            if (one != null && two != null)
+            {
+                int z = Convert.ToInt32(one);
+                int y = Convert.ToInt32(two);
+                cordsPrior = new Coordinates(z, y);
+                string testMe = "";
+                if (pieces.TryGetValue(cordsPrior, out testMe))
+                {
+                    Second = testMe == null ? false : true;
+                }
+            }
             Console.Clear();
             Coordinates cord;
             string returnMe = "";
@@ -156,10 +209,24 @@ namespace NewCheckers
                             if (j == 0 || j % 2 == 0)
                             {
                                 Console.BackgroundColor = ConsoleColor.White;
+                                if (Second)
+                                {
+                                    if (cord.X == cordsPrior.X && cord.Y == cordsPrior.Y)
+                                    {
+                                        Console.BackgroundColor = ConsoleColor.Blue;
+                                    }
+                                }
                             }
                             else
                             {
                                 Console.BackgroundColor = ConsoleColor.Black;
+                                if (Second)
+                                {
+                                    if (cord.X == cordsPrior.X && cord.Y == cordsPrior.Y)
+                                    {
+                                        Console.BackgroundColor = ConsoleColor.Blue;
+                                    }
+                                }
                             }
                             if (i == x && j == index)
                             {
@@ -171,10 +238,24 @@ namespace NewCheckers
                             if (j == 0 || j % 2 == 0)
                             {
                                 Console.BackgroundColor = ConsoleColor.Black;
+                                if (Second)
+                                {
+                                    if (cord.X == cordsPrior.X && cord.Y == cordsPrior.Y)
+                                    {
+                                        Console.BackgroundColor = ConsoleColor.Blue;
+                                    }
+                                }
                             }
                             else
                             {
                                 Console.BackgroundColor = ConsoleColor.White;
+                                if (Second)
+                                {
+                                    if (cord.X == cordsPrior.X && cord.Y == cordsPrior.Y)
+                                    {
+                                        Console.BackgroundColor = ConsoleColor.Blue;
+                                    }
+                                }
                             }
                             if (i == x && j == index)
                             {
@@ -214,7 +295,7 @@ namespace NewCheckers
                     if (index == i)
                     {
                         Console.BackgroundColor = ConsoleColor.Black;
-                        Console.ForegroundColor = ConsoleColor.Red;
+                        Console.ForegroundColor = ConsoleColor.Green;
                         Console.Write(" ");
                         Console.Write(items[i]);
                         Console.Write(" ");

@@ -10,6 +10,8 @@ namespace NewCheckers
         {
             CurrentBoard = new Board();
         }
+        public int White = 0;
+        public int Black = 0;
         public void Run()
         {
             int turn = 1;
@@ -19,14 +21,48 @@ namespace NewCheckers
             {
                 Select Choose = new Select(turn, CurrentBoard.pieces);
                 Coordinates moveFrom = Choose.From();
-                Coordinates moveTo = Choose.To();
+                Coordinates moveTo = Choose.To(moveFrom);
                 bool valid = Choose.CheckValidity(moveFrom, moveTo);
-                Display disp = new Display(CurrentBoard.pieces);
-                //disp.printBoard();
-                int one = disp.ChooseX(1);
-                int two = disp.ChooseY(1, one);
-                Console.WriteLine(one + "," + two);
+
+                if (valid)
+                {
+                    CurrentBoard.pieces[moveTo] = CurrentBoard.pieces[moveFrom];
+                    CurrentBoard.pieces[moveFrom] = null;
+                    if (moveTo.X == 0 && turn == 1)
+                    {
+                        this.CurrentBoard.pieces[moveTo].MakeKing();
+                    }
+                    if (moveTo.X == 7 && turn == 2)
+                    {
+                        this.CurrentBoard.pieces[moveTo].MakeKing();
+                    }
+                    if (Choose.Jumped == true)
+                    {
+                        bool addPoint = CurrentBoard.pieces[Choose.Remove].ColorAbs == "white" ? true : false;
+                        this.CurrentBoard.pieces[Choose.Remove] = null;
+                        if (addPoint)
+                        {
+                            this.White++;
+                        }
+                        else
+                        {
+                            this.Black++;
+                        }
+                    }
+
+                    turn = turn == 1 ? 2 : 1;
+                }
+
+                GameOver = White == 12 || Black == 12 ? true : false;
+                if (GameOver)
+                {
+                    Winner = White == 12 ? 1 : 2;
+                }
+
             }
         }
     }
 }
+/*Display display = new Display(CurrentBoard.pieces);
+                int one = display.ChooseX(1);
+                int two = display.ChooseY(1, one); */
