@@ -6,7 +6,9 @@ namespace WordGuess
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Hello World!");
+            GuessingGame game = new GuessingGame();
+            game.Run();
+
         }
     }
 }
