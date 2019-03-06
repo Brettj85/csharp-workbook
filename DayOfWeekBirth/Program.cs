@@ -17,6 +17,24 @@ namespace DayOfWeekBirth
         static void Main(string[] args)
         {
             DayOfBirth birth = new DayOfBirth();
+            int year = getValidYear();
+            int day = birth.DayOfWeek(20, 6, year);
+            DaysWeek theDay = (DaysWeek)day;
+            Console.Clear();
+            bool isBeforeBirthday = DateTime.Now.Month == 6 && DateTime.Now.Day <= 20 ? true : false;
+            isBeforeBirthday = !isBeforeBirthday && DateTime.Now.Month < 6 ? false : true;
+            isBeforeBirthday = isBeforeBirthday && year == DateTime.Now.Year ? true : false;
+            Console.WriteLine("My birthday {2} on {0} in {1}", theDay, year, (year < DateTime.Now.Year || isBeforeBirthday ? "fell" : "falls"));
+            Console.WriteLine();
+            Events odd = new Events();
+            string happend = odd.GetEvent(year);
+            if (happend != "")
+            {
+                printHappend(happend, year);
+            }
+        }
+        private static int getValidYear()
+        {
             Console.Write("enter four digits of a year");
             string yearstring = "";
             int year = 0;
@@ -31,36 +49,35 @@ namespace DayOfWeekBirth
 
                 }
             }
-            int day = birth.DayOfWeek(20, 6, year);
-            DaysWeek theDay = (DaysWeek)day;
-            Console.WriteLine("My birthday falls on {0} in {1}", theDay, year);
-            Events odd = new Events();
-            string happend = odd.GetEvent(year);
-            if (happend != "")
+            return year;
+        }
+        private static void printHappend(string happend, int year)
+        {
+            int amount = happend.Length;
+            string[] story = new string[amount];
+            for (int i = 0; i < amount; i++)
             {
-                int amount = happend.Length;
-                string[] story = new string[amount];
-                for (int i = 0; i < amount; i++)
-                {
-                    story[i] = happend.Substring(i, 1);
-                }
+                story[i] = happend.Substring(i, 1);
+            }
 
-                Console.WriteLine("ON THIS DAY IN HISTORY");
-                for (int i = 0; i < story.Length; i++)
+            Console.WriteLine("   ON THIS DAY IN {0}   ", year);
+            for (int i = 0; i < story.Length; i++)
+            {
+                if (i % 24 == 0 && i != 0)
                 {
-                    if (i % 21 == 0 && i != 0)
+                    if (story[i + 1] != " " && story[i - 1] != " " && story[i] != " ")
                     {
-                        if (story[i + 1] != " ")
-                        {
-                            Console.Write("-");
-                        }
-                        Console.WriteLine();
-                        Console.Write(story[i]);
+                        Console.Write("-");
                     }
-                    else
+                    Console.WriteLine();
+                    if (story[i] != " ")
                     {
                         Console.Write(story[i]);
                     }
+                }
+                else
+                {
+                    Console.Write(story[i]);
                 }
             }
         }
