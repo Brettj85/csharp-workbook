@@ -58,7 +58,6 @@ namespace NewCheckers
                 {
                     Winner = White == 12 ? 1 : 2;
                 }
-
             }
         }
     }
