@@ -4,7 +4,7 @@ namespace DayOfWeekBirth
 {
     class Program
     {
-        enum DaysWeek
+        private enum DaysWeek
         {
             Sunday,
             Monday,
@@ -34,19 +34,35 @@ namespace DayOfWeekBirth
             int day = birth.DayOfWeek(20, 6, year);
             DaysWeek theDay = (DaysWeek)day;
             Console.WriteLine("My birthday falls on {0} in {1}", theDay, year);
-        }
-    }
-    class DayOfBirth
-    {
+            Events odd = new Events();
+            string happend = odd.GetEvent(year);
+            if (happend != "")
+            {
+                int amount = happend.Length;
+                string[] story = new string[amount];
+                for (int i = 0; i < amount; i++)
+                {
+                    story[i] = happend.Substring(i, 1);
+                }
 
-        public int DayOfWeek(int d, int m, int y)
-        {
-            int[] t = { 0, 3, 2, 5, 0, 3, 5,
-                            1, 4, 6, 2, 4 };
-            y -= (m < 3) ? 1 : 0;
-
-            return (y + y / 4 - y / 100 + y / 400
-                             + t[m - 1] + d) % 7;
+                Console.WriteLine("ON THIS DAY IN HISTORY");
+                for (int i = 0; i < story.Length; i++)
+                {
+                    if (i % 21 == 0 && i != 0)
+                    {
+                        if (story[i + 1] != " ")
+                        {
+                            Console.Write("-");
+                        }
+                        Console.WriteLine();
+                        Console.Write(story[i]);
+                    }
+                    else
+                    {
+                        Console.Write(story[i]);
+                    }
+                }
+            }
         }
     }
 }
