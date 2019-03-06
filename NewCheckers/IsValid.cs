@@ -70,7 +70,13 @@ namespace NewCheckers
                 }
                 else
                 {
-                    to = false;
+                    if (tryMe != null)
+                    {
+                        if (!tryMe.King)
+                        {
+                            to = false;
+                        }
+                    }
                 }
             }
             if (Turn == 2 && (To.X - From.X) < 0)
