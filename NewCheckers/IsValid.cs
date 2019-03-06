@@ -58,7 +58,8 @@ namespace NewCheckers
             if (Turn == 1 && (From.X - To.X) < 0)
             {
                 Checker tryMe;
-                if (!CurBoard.TryGetValue(From, out tryMe))
+
+                if (CurBoard.TryGetValue(From, out tryMe))
                 {
                     if (tryMe != null)
                     {
@@ -70,19 +71,13 @@ namespace NewCheckers
                 }
                 else
                 {
-                    if (tryMe != null)
-                    {
-                        if (!tryMe.King)
-                        {
-                            to = false;
-                        }
-                    }
+                    to = false;
                 }
             }
             if (Turn == 2 && (To.X - From.X) < 0)
             {
                 Checker tryMe;
-                if (!CurBoard.TryGetValue(From, out tryMe))
+                if (CurBoard.TryGetValue(From, out tryMe))
                 {
                     if (tryMe != null && !tryMe.King)
                         if (tryMe != null)
