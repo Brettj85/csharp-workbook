@@ -69,8 +69,12 @@ namespace WordGuess
                     }
                 }
                 index++;
-                Console.WriteLine("Guess a Word");
+                Console.WriteLine("Guess a Word or type exit");
                 guess = Console.ReadLine();
+                if (guess.ToLower() == "exit")
+                {
+                    break;
+                }
                 int toGuess = (int)System.Enum.Parse(typeof(Letters), wordToGuess.Substring(0, 1), true);
                 int fromGuess = (int)System.Enum.Parse(typeof(Letters), guess.Substring(0, 1), true);
                 if (fromGuess > toGuess)
@@ -93,9 +97,14 @@ namespace WordGuess
                 Console.Write(guess);
             }
             Console.WriteLine();
-            Console.WriteLine("you have Won the word was {0}", guess);
-
-
+            if (guess == GuessThis)
+            {
+                Console.WriteLine("you have Won the word was {0}", guess);
+            }
+            else
+            {
+                Console.WriteLine("you quit!");
+            }
         }
     }
 }
