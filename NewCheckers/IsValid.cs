@@ -58,7 +58,6 @@ namespace NewCheckers
             if (Turn == 1 && (From.X - To.X) < 0)
             {
                 Checker tryMe;
-
                 if (CurBoard.TryGetValue(From, out tryMe))
                 {
                     if (tryMe != null)
