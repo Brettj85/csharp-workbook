@@ -24,7 +24,7 @@ namespace ToDoApp
                     List<string> options = new List<string> { "Add Entry", "Update Entry", "Delete Entry", "View Entry", "Exit" };
                     DisplayVertical display = new DisplayVertical(options, index);
                     request = display.SelectTask();
-
+                    request = request.Substring(0, 1).ToLower();
 
                     if (request == "e")
                     {
