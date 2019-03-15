@@ -8,8 +8,11 @@ namespace ToDoApp
         static void Main(string[] args)
         {
             NewDatabase newToDoDb = new NewDatabase();
-            ToDoLoop toDoLoop = new ToDoLoop();
+
+            ToDoLoop toDoLoop = new ToDoLoop(newToDoDb.GetDb());
             toDoLoop.Run();
+
+            //stop program from closing
             Console.ReadLine();
         }
     }

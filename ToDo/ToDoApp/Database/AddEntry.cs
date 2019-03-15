@@ -6,7 +6,7 @@ namespace ToDoApp
     {
         public void NewTask()
         {
-            throw new NotImplementedException();
+            //take in a list of values varify them and put them in the DB
         }
     }
 }
