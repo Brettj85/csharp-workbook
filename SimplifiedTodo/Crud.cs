@@ -29,10 +29,13 @@ namespace SimplifiedTodo
                         CreateItem();
                         break;
                     case "r":
+                        ReadItem();
                         break;
                     case "u":
+                        UpdateItem();
                         break;
                     case "d":
+                        DeleteItem();
                         break;
 
                     default:
@@ -73,7 +76,11 @@ namespace SimplifiedTodo
                     Thread.Sleep(500);
                 }
 
-                if (!input.Contains("-") || !int.TryParse(input, out int num))
+                if (input.Contains("-") || int.TryParse(input, out int num))
+                {
+
+                }
+                else
                 {
                     input = "";
                     Console.Clear();
@@ -88,7 +95,7 @@ namespace SimplifiedTodo
             }
             else
             {
-                entry = Context.ToDos.Find(input);
+                entry = Context.ToDos.Find(Convert.ToInt32(input));
                 Console.WriteLine("*****************************************************************************************************************");
                 Console.Write("Title: ");
                 Console.WriteLine(entry.Title);
