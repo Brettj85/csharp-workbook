@@ -96,29 +96,37 @@ namespace SimplifiedTodo
             else
             {
                 entry = Context.ToDos.Find(Convert.ToInt32(input));
-                Console.WriteLine("*****************************************************************************************************************");
-                Console.Write("Title: ");
-                Console.WriteLine(entry.Title);
-                Console.Write("Created: ");
-                Console.WriteLine(entry.CreateDate);
-                Console.Write("Content: ");
-                Console.WriteLine(entry.Content);
-                if (entry.Completed)
+                var find = Context.ToDos.Find(Convert.ToInt32(input));
+                if (find != null)
                 {
-                    if (entry.Sucess)
+                    Console.WriteLine("*****************************************************************************************************************");
+                    Console.Write("Title: ");
+                    Console.WriteLine(entry.Title);
+                    Console.Write("Created: ");
+                    Console.WriteLine(entry.CreateDate);
+                    Console.Write("Content: ");
+                    Console.WriteLine(entry.Content);
+                    if (entry.Completed)
                     {
-                        Console.WriteLine("Status: Completed Successfully");
+                        if (entry.Sucess)
+                        {
+                            Console.WriteLine("Status: Completed Successfully");
+                        }
+                        else
+                        {
+                            Console.WriteLine("Status: Abandoned");
+                        }
                     }
                     else
                     {
-                        Console.WriteLine("Status: Abandoned");
+                        Console.WriteLine("Status: In Progress");
                     }
+                    Console.WriteLine("*****************************************************************************************************************");
                 }
                 else
                 {
-                    Console.WriteLine("Status: In Progress");
+                    Console.WriteLine("invalid selection");
                 }
-                Console.WriteLine("*****************************************************************************************************************");
                 Console.ReadLine();
             }
 
@@ -204,7 +212,7 @@ namespace SimplifiedTodo
                 }
                 else
                 {
-                    var find = Context.ToDos.Find(input);
+                    var find = Context.ToDos.Find(Convert.ToInt32(input));
                     if (find != null)
                     {
                         Context.ToDos.Remove(find);
