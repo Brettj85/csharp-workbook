@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Threading;
 
 namespace SimplifiedTodo
@@ -65,7 +67,7 @@ namespace SimplifiedTodo
             while (input == "")
             {
                 Console.Clear();
-                Console.WriteLine("Enter an id or a range of id's seperated by a \"-\" (example \"1-7\")");
+                Console.WriteLine("Enter an id or a range of id's seperated by a \"-\" (example \"1-7\") or a for all");
                 Console.Write(": ");
                 input = Console.ReadLine();
 
@@ -76,7 +78,7 @@ namespace SimplifiedTodo
                     Thread.Sleep(500);
                 }
 
-                if (input.Contains("-") || int.TryParse(input, out int num))
+                if (input.Contains("-") || int.TryParse(input, out int num) || input == "a")
                 {
 
                 }
@@ -92,6 +94,36 @@ namespace SimplifiedTodo
             if (input.Contains("-"))
             {
                 Console.WriteLine("This functionality is under construction");
+            }
+            else if (input == "a")
+            {
+                List<ToDo> todosList = Context.ToDos.ToList();
+                foreach (var item in todosList)
+                {
+                    Console.WriteLine("*****************************************************************************************************************");
+                    Console.Write("Title: ");
+                    Console.WriteLine(item.Title);
+                    Console.Write("Created: ");
+                    Console.WriteLine(item.CreateDate);
+                    Console.Write("Content: ");
+                    Console.WriteLine(item.Content);
+                    if (item.Completed)
+                    {
+                        if (item.Sucess)
+                        {
+                            Console.WriteLine("Status: Completed Successfully");
+                        }
+                        else
+                        {
+                            Console.WriteLine("Status: Abandoned");
+                        }
+                    }
+                    else
+                    {
+                        Console.WriteLine("Status: In Progress");
+                    }
+                }
+                Console.WriteLine("*****************************************************************************************************************");
             }
             else
             {
@@ -152,6 +184,21 @@ namespace SimplifiedTodo
                     Console.WriteLine(find.CreateDate);
                     Console.Write("Content: ");
                     Console.WriteLine(find.Content);
+                    if (find.Completed)
+                    {
+                        if (find.Sucess)
+                        {
+                            Console.WriteLine("Status: Completed Successfully");
+                        }
+                        else
+                        {
+                            Console.WriteLine("Status: Abandoned");
+                        }
+                    }
+                    else
+                    {
+                        Console.WriteLine("Status: In Progress");
+                    }
                     Console.WriteLine("*****************************************************************************************************************");
                     Console.WriteLine();
                     Console.Write("Modify Entry");
