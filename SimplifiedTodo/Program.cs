@@ -15,6 +15,7 @@ namespace SimplifiedTodo
             context.Database.EnsureCreated();
 
             Crud crud = new Crud(context);
+            crud.Run();
         }
     }
 }

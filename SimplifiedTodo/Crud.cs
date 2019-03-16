@@ -11,6 +11,7 @@ namespace SimplifiedTodo
         {
             Context = c;
         }
+
         public void Run()
         {
             while (true)
@@ -180,7 +181,30 @@ namespace SimplifiedTodo
         }
         public static void DeleteItem()
         {
+            string input = "";
+            while (input == "")
+            {
+                Console.Clear();
+                Console.WriteLine("Enter an id of item to remove");
+                Console.Write(": ");
+                input = Console.ReadLine();
 
+                if (input == "")
+                {
+                    Console.Clear();
+                    Console.WriteLine("Invalid Entry");
+                    Thread.Sleep(500);
+                }
+                else
+                {
+                    var find = Context.ToDos.Find(input);
+                    if (find != null)
+                    {
+                        Context.ToDos.Remove(find);
+                    }
+                    Context.SaveChanges();
+                }
+            }
         }
     }
 }
