@@ -137,14 +137,13 @@ namespace SimplifiedTodo
             while (input == "")
             {
                 Console.Write("Enter item Id: ");
-                Console.Clear();
                 input = Console.ReadLine();
             }
-            var find = Context.ToDos.Find(input);
+            var find = Context.ToDos.Find(Convert.ToInt32(input));
             if (find != null)
             {
                 string modifyWhat = "";
-                while (modifyWhat != "t" || modifyWhat != "c" || modifyWhat != "s" || modifyWhat != "a" || modifyWhat != "e")
+                while (modifyWhat != "t" && modifyWhat != "c" && modifyWhat != "s" && modifyWhat != "a" && modifyWhat != "e")
                 {
                     Console.WriteLine("*****************************************************************************************************************");
                     Console.Write("Title: ");
@@ -157,12 +156,12 @@ namespace SimplifiedTodo
                     Console.WriteLine();
                     Console.Write("Modify Entry");
                     Console.Write("t = Title c = Content s = successful a = abandon e = Exit: ");
-                    Console.ReadLine();
+                    modifyWhat = Console.ReadLine();
                 }
                 if (modifyWhat == "t")
                 {
                     string userInput = "";
-                    while (userInput != "")
+                    while (userInput == "")
                     {
                         Console.Clear();
                         Console.Write("Enter new Title: ");
