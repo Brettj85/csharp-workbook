@@ -1,21 +1,38 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Threading;
 
-namespace Mastermind
+namespace gameboy
 {
-    class Program
+    class Mastermind
     {
-        static void Main(string[] args)
+        public static int Play(CheatController cheats)
         {
-
-            Game game = new Game(GenerateSolution());
-            int TurnsRemaining = 0;
-            for (int turns = 10; turns > 0; turns--)
+            int totalTurns = 10;
+            foreach (var item in cheats.ActiveCheats)
             {
-                Console.WriteLine($"You have {turns} tries left");
-                Console.WriteLine("Choose four letters: ");
-                string letters = Console.ReadLine();
+                totalTurns = item == "Immortality" ? -1 : totalTurns;
+            }
+            Console.Clear();
+            Game game = new Game(GenerateSolution(cheats));
+            int TurnsRemaining = 0;
+
+            for (int turns = totalTurns; turns != 0; turns--)
+            {
+                string turnsLeft = turns.ToString();
+                turnsLeft = turns < 0 ? "Unlimited" : turnsLeft;
+                Console.WriteLine($"You have {turnsLeft} tries left");
+                string letters = "";
+                while (letters.Length != 4)
+                {
+                    Console.WriteLine("Choose four letters or e for exit: ");
+                    letters = Console.ReadLine();
+                }
+                if (letters.ToLower() == "exit")
+                {
+                    turns = 0;
+                    break;
+                }
                 Ball[] balls = new Ball[4];
                 for (int i = 0; i < 4; i++)
                 {
@@ -31,17 +48,20 @@ namespace Mastermind
                 {
                     Console.Clear();
                     Console.WriteLine("You Win");
-                    Thread.Sleep(3000);
+                    Thread.Sleep(1000);
                     TurnsRemaining = turns;
+                    Console.Clear();
                     break;
                 }
                 game.AddRow(row);
                 Console.WriteLine(game.Rows);
 
             }
-            Console.WriteLine(TurnsRemaining > 0 ? "Great Job" : "Out Of Turns");
+            Console.WriteLine(TurnsRemaining != 0 ? "Great Job" : "Out Of Turns");
+            Console.Clear();
+            return TurnsRemaining != 0 ? 1 : 0;
         }
-        public static string[] GenerateSolution()
+        public static string[] GenerateSolution(CheatController cheats)
         {
             Random rnd = new Random();
             List<string> available = new List<string> { "a", "b", "c", "d", "e", "f" };
@@ -58,7 +78,15 @@ namespace Mastermind
             int four = rnd.Next(1, 3);
             solution[3] = available[four];
             available.RemoveRange(four, 1);
-            //uncomment to print solution Console.WriteLine(solution[0] + solution[1] + solution[2] + solution[3]);
+            bool preview = false;
+            foreach (var item in cheats.ActiveCheats)
+            {
+                preview = item == "Not So Mastermind" ? true : preview;
+            }
+            if (preview)
+            {
+                Console.WriteLine(solution[0] + solution[1] + solution[2] + solution[3]);
+            }
             return solution;
         }
     }
